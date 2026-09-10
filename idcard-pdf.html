@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ID Card to PDF - ID Tools</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #222;
+}
+
+header {
+  background: white;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 2px 10px #ddd;
+}
+
+header h1 {
+  margin: 0;
+  color: #2563eb;
+}
+
+.container {
+  width: 94%;
+  max-width: 700px;
+  margin: 25px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px #ddd;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+}
+
+.preview {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.preview img {
+  max-width: 100%;
+  max-height: 250px;
+  border-radius: 8px;
+  display: none;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 9px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+button:disabled {
+  background: #aaa;
+}
+
+.status {
+  text-align: center;
+  margin-top: 15px;
+  color: #666;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🪪 ID Card to PDF</h1>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h3>📄 Front Side</h3>
+
+    <input
+      type="file"
+      id="frontInput"
+      accept="image/*"
+    >
+
+    <div class="preview">
+      <img id="frontPreview">
+    </div>
+  </div>
+
+
+  <div class="card">
+    <h3>📄 Back Side</h3>
+
+    <input
+      type="file"
+      id="backInput"
+      accept="image/*"
+    >
+
+    <div class="preview">
+      <img id="backPreview">
+    </div>
+  </div>
+
+
+  <button
+    id="pdfButton"
+    onclick="createPDF()"
+    disabled
+  >
+    📥 Create PDF
+  </button>
+
+  <div class="status" id="status"></div>
+
+</div>
+
+
+<script>
+
+const frontInput =
+  document.getElementById("frontInput");
+
+const backInput =
+  document.getElementById("backInput");
+
+const frontPreview =
+  document.getElementById("frontPreview");
+
+const backPreview =
+  document.getElementById("backPreview");
+
+const pdfButton =
+  document.getElementById("pdfButton");
+
+const status =
+  document.getElementById("status");
+
+
+let frontImage = null;
+let backImage = null;
+
+
+frontInput.addEventListener("change", function() {
+
+  const file = frontInput.files[0];
+
+  if (!file) return;
+
+  frontImage = file;
+
+  frontPreview.src =
+    URL.createObjectURL(file);
+
+  frontPreview.style.display = "block";
+
+  checkFiles();
+
+});
+
+
+backInput.addEventListener("change", function() {
+
+  const file = backInput.files[0];
+
+  if (!file) return;
+
+  backImage = file;
+
+  backPreview.src =
+    URL.createObjectURL(file);
+
+  backPreview.style.display = "block";
+
+  checkFiles();
+
+});
+
+
+function checkFiles() {
+
+  if (frontImage && backImage) {
+
+    pdfButton.disabled = false;
+
+    status.innerText =
+      "Both sides selected. Ready to create PDF.";
+
+  } else {
+
+    pdfButton.disabled = true;
+
+  }
+
+}
+
+
+function loadImage(file) {
+
+  return new Promise(function(resolve, reject) {
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+      const img = new Image();
+
+      img.onload = function() {
+        resolve(img);
+      };
+
+      img.onerror = reject;
+
+      img.src = e.target.result;
+
+    };
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(file);
+
+  });
+
+}
+
+
+async function createPDF() {
+
+  if (!frontImage || !backImage) {
+
+    alert(
+      "Please select both front and back images."
+    );
+
+    return;
+
+  }
+
+
+  status.innerText =
+    "Creating PDF...";
+
+
+  try {
+
+    const front =
+      await loadImage(frontImage);
+
+    const back =
+      await loadImage(backImage);
+
+
+    /*
+      A4 size at 96 DPI:
+      794 × 1123 pixels
+    */
+
+    const pdfWidth = 794;
+    const pdfHeight = 1123;
+
+    const page1 =
+      document.createElement("canvas");
+
+    page1.width = pdfWidth;
+    page1.height = pdfHeight;
+
+    const ctx1 =
+      page1.getContext("2d");
+
+    ctx1.fillStyle = "white";
+    ctx1.fillRect(
+      0,
+      0,
+      pdfWidth,
+      pdfHeight
+    );
+
+
+    drawCard(
+      ctx1,
+      front,
+      pdfWidth,
+      pdfHeight
+    );
+
+
+    const page2 =
+      document.createElement("canvas");
+
+    page2.width = pdfWidth;
+    page2.height = pdfHeight;
+
+    const ctx2 =
+      page2.getContext("2d");
+
+    ctx2.fillStyle = "white";
+    ctx2.fillRect(
+      0,
+      0,
+      pdfWidth,
+      pdfHeight
+    );
+
+
+    drawCard(
+      ctx2,
+      back,
+      pdfWidth,
+      pdfHeight
+    );
+
+
+    /*
+      Create a simple PDF
+      using browser Blob data.
+    */
+
+    const pdf =
+      createSimplePDF(
+        page1,
+        page2
+      );
+
+
+    const blob =
+      new Blob(
+        [pdf],
+        { type: "application/pdf" }
+      );
+
+
+    const url =
+      URL.createObjectURL(blob);
+
+
+    const link =
+      document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+      "id-card.pdf";
+
+    link.click();
+
+
+    URL.revokeObjectURL(url);
+
+
+    status.innerText =
+      "PDF created successfully!";
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    status.innerText =
+      "Something went wrong.";
+
+  }
+
+}
+
+
+function drawCard(
+  ctx,
+  img,
+  pageWidth,
+  pageHeight
+) {
+
+  const maxWidth = 650;
+  const maxHeight = 420;
+
+  const scale =
+    Math.min(
+      maxWidth / img.width,
+      maxHeight / img.height
+    );
+
+  const width =
+    img.width * scale;
+
+  const height =
+    img.height * scale;
+
+  const x =
+    (pageWidth - width) / 2;
+
+  const y =
+    (pageHeight - height) / 2;
+
+  ctx.drawImage(
+    img,
+    x,
+    y,
+    width,
+    height
+  );
+
+}
+
+
+/*
+  Convert canvas image into
+  JPEG binary and make a basic
+  two-page PDF.
+*/
+
+function createSimplePDF(
+  canvas1,
+  canvas2
+) {
+
+  const img1 =
+    canvas1
+      .toDataURL("image/jpeg", 0.85)
+      .split(",")[1];
+
+  const img2 =
+    canvas2
+      .toDataURL("image/jpeg", 0.85)
+      .split(",")[1];
+
+
+  const binary1 =
+    atob(img1);
+
+  const binary2 =
+    atob(img2);
+
+
+  function imageBytes(binary) {
+
+    let arr = [];
+
+    for (
+      let i = 0;
+      i < binary.length;
+      i++
+    ) {
+
+      arr.push(
+        binary.charCodeAt(i)
+      );
+
+    }
+
+    return new Uint8Array(arr);
+
+  }
+
+
+  const jpg1 =
+    imageBytes(binary1);
+
+  const jpg2 =
+    imageBytes(binary2);
+
+
+  const objects = [];
+
+  objects.push(
+    "%PDF-1.3\n"
+  );
+
+
+  const offsets = [0];
+
+
+  function addObject(data) {
+
+    offsets.push(
+      objects.join("").length
+    );
+
+    objects.push(data);
+
+  }
+
+
+  addObject(
+    "1 0 obj\n" +
+    "<< /Type /Catalog /Pages 2 0 R >>\n" +
+    "endobj\n"
+  );
+
+
+  addObject(
+    "2 0 obj\n" +
+    "<< /Type /Pages /Kids [3 0 R 7 0 R] /Count 2 >>\n" +
+    "endobj\n"
+  );
+
+
+  addObject(
+    "3 0 obj\n" +
+    "<< /Type /Page /Parent 2 0 R " +
+    "/MediaBox [0 0 595 842] " +
+    "/Resources << /XObject << /Im1 5 0 R >> >> " +
+    "/Contents 4 0 R >>\n" +
+    "endobj\n"
+  );
+
+
+  const stream1 =
+    "q\n" +
+    "595 0 0 842 0 0 cm\n" +
+    "/Im1 Do\n" +
+    "Q\n";
+
+
+  addObject(
+    "4 0 obj\n" +
+    "<< /Length " +
+    stream1.length +
+    " >>\n" +
+    "stream\n" +
+    stream1 +
+    "endstream\n" +
+    "endobj\n"
+  );
+
+
+  addObject(
+    "5 0 obj\n" +
+    "<< /Type /XObject " +
+    "/Subtype /Image " +
+    "/Width 794 " +
+    "/Height 1123 " +
+    "/ColorSpace /DeviceRGB " +
+    "/BitsPerComponent 8 " +
+    "/Filter /DCTDecode " +
+    "/Length " +
+    jpg1.length +
+    " >>\n" +
+    "stream\n"
+  );
+
+
+  objects.push(
+    new TextDecoder().decode(jpg1)
+  );
+
+  objects.push(
+    "\nendstream\nendobj\n"
+  );
+
+
+  addObject(
+    "7 0 obj\n" +
+    "<< /Type /Page /Parent 2 0 R " +
+    "/MediaBox [0 0 595 842] " +
+    "/Resources << /XObject << /Im2 9 0 R >> >> " +
+    "/Contents 8 0 R >>\n" +
+    "endobj\n"
+  );
+
+
+  const stream2 =
+    "q\n" +
+    "595 0 0 842 0 0 cm\n" +
+    "/Im2 Do\n" +
+    "Q\n";
+
+
+  addObject(
+    "8 0 obj\n" +
+    "<< /Length " +
+    stream2.length +
+    " >>\n" +
+    "stream\n" +
+    stream2 +
+    "endstream\n" +
+    "endobj\n"
+  );
+
+
+  addObject(
+    "9 0 obj\n" +
+    "<< /Type /XObject " +
+    "/Subtype /Image " +
+    "/Width 794 " +
+    "/Height 1123 " +
+    "/ColorSpace /DeviceRGB " +
+    "/BitsPerComponent 8 " +
+    "/Filter /DCTDecode " +
+    "/Length " +
+    jpg2.length +
+    " >>\n" +
+    "stream\n"
+  );
+
+
+  objects.push(
+    new TextDecoder().decode(jpg2)
+  );
+
+  objects.push(
+    "\nendstream\nendobj\n"
+  );
+
+
+  const body =
+    objects.join("");
+
+
+  const xref =
+    body.length;
+
+
+  let result =
+    body +
+    "xref\n" +
+    "0 10\n" +
+    "0000000000 65535 f \n";
+
+
+  for (
+    let i = 1;
+    i < 10;
+    i++
+  ) {
+
+    result +=
+      String(
+        offsets[i] || 0
+      ).padStart(10, "0") +
+      " 00000 n \n";
+
+  }
+
+
+  result +=
+    "trailer\n" +
+    "<< /Size 10 /Root 1 0 R >>\n" +
+    "startxref\n" +
+    xref +
+    "\n%%EOF";
+
+
+  return result;
+
+}
+
+</script>
+
+</body>
+    </html>
