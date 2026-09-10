@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QR Code Generator - ID Tools</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#222;
+}
+
+.navbar{
+  background:#111827;
+  padding:16px 20px;
+}
+
+.navbar a{
+  color:white;
+  text-decoration:none;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:650px;
+  margin:35px auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+h1{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#666;
+  margin-bottom:25px;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+textarea{
+  width:100%;
+  min-height:130px;
+  padding:14px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:16px;
+  resize:vertical;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.generate{
+  background:#2563eb;
+  color:white;
+}
+
+.download{
+  background:#16a34a;
+  color:white;
+  display:none;
+}
+
+.qr-box{
+  margin-top:30px;
+  text-align:center;
+}
+
+#qrcode{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:20px;
+}
+
+#qrcode img{
+  max-width:100%;
+}
+
+.tip{
+  background:#f3f4f6;
+  padding:14px;
+  border-radius:10px;
+  margin-top:20px;
+  color:#555;
+  line-height:1.6;
+}
+
+@media(max-width:600px){
+  .container{
+    margin:15px auto;
+  }
+
+  .card{
+    padding:18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <a href="index.html">🛠️ ID Tools</a>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h1>QR Code Generator</h1>
+
+<p class="subtitle">
+Create a QR code from text or a website link.
+</p>
+
+<label for="qrText">
+Enter text or URL
+</label>
+
+<textarea
+  id="qrText"
+  placeholder="https://example.com"
+></textarea>
+
+<button
+  class="generate"
+  onclick="generateQR()"
+>
+Generate QR Code
+</button>
+
+<div class="qr-box">
+
+<h3 id="qrTitle" style="display:none;">
+Your QR Code
+</h3>
+
+<div id="qrcode"></div>
+
+</div>
+
+<button
+  class="download"
+  id="downloadBtn"
+  onclick="downloadQR()"
+>
+Download QR Code
+</button>
+
+<div class="tip">
+<b>Tip:</b> You can use a website URL, text,
+contact information, Wi-Fi information, or any
+other text you want to encode.
+</div>
+
+</div>
+
+</div>
+
+<!-- QR Code Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+
+let qrCode = null;
+
+function generateQR(){
+
+  const text =
+    document.getElementById("qrText").value.trim();
+
+  if(!text){
+
+    alert("Please enter some text or a URL.");
+
+    return;
+  }
+
+  const qrContainer =
+    document.getElementById("qrcode");
+
+  qrContainer.innerHTML = "";
+
+  qrCode = new QRCode(qrContainer, {
+    text: text,
+    width: 250,
+    height: 250,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  document.getElementById(
+    "qrTitle"
+  ).style.display = "block";
+
+  document.getElementById(
+    "downloadBtn"
+  ).style.display = "block";
+
+}
+
+function downloadQR(){
+
+  const qrContainer =
+    document.getElementById("qrcode");
+
+  const canvas =
+    qrContainer.querySelector("canvas");
+
+  if(!canvas){
+
+    alert("Please generate a QR code first.");
+
+    return;
+  }
+
+  const link =
+    document.createElement("a");
+
+  link.download = "qr-code.png";
+
+  link.href =
+    canvas.toDataURL("image/png");
+
+  link.click();
+
+}
+
+</script>
+
+</body>
+</html>
