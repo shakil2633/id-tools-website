@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Image Resizer - ID Tools</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#222;
+}
+
+.navbar{
+  background:#111827;
+  padding:16px 20px;
+}
+
+.navbar a{
+  color:white;
+  text-decoration:none;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:700px;
+  margin:30px auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+h1{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#666;
+  margin-bottom:25px;
+}
+
+.upload{
+  border:2px dashed #9ca3af;
+  padding:25px;
+  text-align:center;
+  border-radius:12px;
+}
+
+input[type="file"]{
+  width:100%;
+  padding:10px;
+}
+
+.dimensions{
+  display:flex;
+  gap:12px;
+  margin-top:20px;
+}
+
+.field{
+  flex:1;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+input[type="number"]{
+  width:100%;
+  padding:13px;
+  border:1px solid #d1d5db;
+  border-radius:9px;
+  font-size:16px;
+}
+
+.checkbox{
+  margin-top:15px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.checkbox input{
+  width:18px;
+  height:18px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:15px;
+}
+
+.resize{
+  background:#2563eb;
+  color:white;
+}
+
+.download{
+  background:#16a34a;
+  color:white;
+  display:none;
+}
+
+.preview{
+  text-align:center;
+  margin-top:25px;
+}
+
+.preview img{
+  max-width:100%;
+  max-height:400px;
+  margin-top:15px;
+  border-radius:8px;
+}
+
+.info{
+  background:#f3f4f6;
+  padding:14px;
+  border-radius:10px;
+  margin-top:18px;
+  line-height:1.7;
+}
+
+@media(max-width:600px){
+
+  .card{
+    padding:18px;
+  }
+
+  .dimensions{
+    flex-direction:column;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <a href="index.html">🛠️ ID Tools</a>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h1>Image Resizer</h1>
+
+<p class="subtitle">
+Resize your image to the exact dimensions you need.
+</p>
+
+<div class="upload">
+
+<p style="margin-bottom:12px;">
+Choose an image
+</p>
+
+<input
+  type="file"
+  id="imageInput"
+  accept="image/*"
+>
+
+</div>
+
+<div class="dimensions">
+
+<div class="field">
+
+<label for="width">
+Width (px)
+</label>
+
+<input
+  type="number"
+  id="width"
+  placeholder="600"
+  min="1"
+>
+
+</div>
+
+<div class="field">
+
+<label for="height">
+Height (px)
+</label>
+
+<input
+  type="number"
+  id="height"
+  placeholder="600"
+  min="1"
+>
+
+</div>
+
+</div>
+
+<div class="checkbox">
+
+<input
+  type="checkbox"
+  id="lockRatio"
+  checked
+>
+
+<label for="lockRatio">
+Keep aspect ratio
+</label>
+
+</div>
+
+<button
+  class="resize"
+  onclick="resizeImage()"
+>
+Resize Image
+</button>
+
+<div class="preview">
+
+<h3 id="previewTitle" style="display:none;">
+Resized Image
+</h3>
+
+<img
+  id="previewImage"
+  style="display:none;"
+>
+
+</div>
+
+<div
+  class="info"
+  id="resultInfo"
+  style="display:none;"
+>
+
+<b>New Size:</b>
+<span id="newSize"></span>
+
+<br>
+
+<b>File Size:</b>
+<span id="fileSize"></span>
+
+</div>
+
+<a
+  id="downloadLink"
+  download="resized-image.jpg"
+>
+
+<button
+  class="download"
+  id="downloadBtn"
+>
+Download Resized Image
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+let selectedImage = null;
+let originalWidth = 0;
+let originalHeight = 0;
+
+const imageInput =
+  document.getElementById("imageInput");
+
+imageInput.addEventListener(
+  "change",
+  function(){
+
+    selectedImage = this.files[0];
+
+    if(!selectedImage){
+      return;
+    }
+
+    const reader =
+      new FileReader();
+
+    reader.onload =
+      function(e){
+
+        const img =
+          new Image();
+
+        img.onload =
+          function(){
+
+            originalWidth =
+              img.width;
+
+            originalHeight =
+              img.height;
+
+            document.getElementById(
+              "width"
+            ).value = img.width;
+
+            document.getElementById(
+              "height"
+            ).value = img.height;
+
+          };
+
+        img.src =
+          e.target.result;
+
+      };
+
+    reader.readAsDataURL(
+      selectedImage
+    );
+
+  }
+);
+
+document.getElementById(
+  "width"
+).addEventListener(
+  "input",
+  function(){
+
+    if(
+      !document.getElementById(
+        "lockRatio"
+      ).checked
+    ){
+      return;
+    }
+
+    if(
+      originalWidth === 0 ||
+      originalHeight === 0
+    ){
+      return;
+    }
+
+    const width =
+      parseInt(this.value);
+
+    const height =
+      Math.round(
+        width *
+        originalHeight /
+        originalWidth
+      );
+
+    document.getElementById(
+      "height"
+    ).value = height;
+
+  }
+);
+
+document.getElementById(
+  "height"
+).addEventListener(
+  "input",
+  function(){
+
+    if(
+      !document.getElementById(
+        "lockRatio"
+      ).checked
+    ){
+      return;
+    }
+
+    if(
+      originalWidth === 0 ||
+      originalHeight === 0
+    ){
+      return;
+    }
+
+    const height =
+      parseInt(this.value);
+
+    const width =
+      Math.round(
+        height *
+        originalWidth /
+        originalHeight
+      );
+
+    document.getElementById(
+      "width"
+    ).value = width;
+
+  }
+);
+
+function resizeImage(){
+
+  if(!selectedImage){
+
+    alert(
+      "Please select an image first."
+    );
+
+    return;
+  }
+
+  const width =
+    parseInt(
+      document.getElementById(
+        "width"
+      ).value
+    );
+
+  const height =
+    parseInt(
+      document.getElementById(
+        "height"
+      ).value
+    );
+
+  if(
+    !width ||
+    !height ||
+    width < 1 ||
+    height < 1
+  ){
+
+    alert(
+      "Please enter valid width and height."
+    );
+
+    return;
+  }
+
+  const reader =
+    new FileReader();
+
+  reader.onload =
+    function(e){
+
+      const img =
+        new Image();
+
+      img.onload =
+        function(){
+
+          const canvas =
+            document.createElement(
+              "canvas"
+            );
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx =
+            canvas.getContext(
+              "2d"
+            );
+
+          /*
+            White background.
+            This prevents transparent images
+            from becoming black in JPEG.
+          */
+
+          ctx.fillStyle =
+            "#ffffff";
+
+          ctx.fillRect(
+            0,
+            0,
+            width,
+            height
+          );
+
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            width,
+            height
+          );
+
+          canvas.toBlob(
+            function(blob){
+
+              const url =
+                URL.createObjectURL(
+                  blob
+                );
+
+              document.getElementById(
+                "previewImage"
+              ).src = url;
+
+              document.getElementById(
+                "previewImage"
+              ).style.display =
+                "block";
+
+              document.getElementById(
+                "previewTitle"
+              ).style.display =
+                "block";
+
+              document.getElementById(
+                "newSize"
+              ).textContent =
+                width +
+                " × " +
+                height +
+                " px";
+
+              document.getElementById(
+                "fileSize"
+              ).textContent =
+                formatBytes(
+                  blob.size
+                );
+
+              document.getElementById(
+                "resultInfo"
+              ).style.display =
+                "block";
+
+              const link =
+                document.getElementById(
+                  "downloadLink"
+                );
+
+              link.href = url;
+
+              document.getElementById(
+                "downloadBtn"
+              ).style.display =
+                "block";
+
+            },
+            "image/jpeg",
+            0.95
+          );
+
+        };
+
+      img.src =
+        e.target.result;
+
+    };
+
+  reader.readAsDataURL(
+    selectedImage
+  );
+
+}
+
+function formatBytes(bytes){
+
+  if(bytes === 0){
+    return "0 Bytes";
+  }
+
+  const units = [
+    "Bytes",
+    "KB",
+    "MB",
+    "GB"
+  ];
+
+  const i =
+    Math.floor(
+      Math.log(bytes) /
+      Math.log(1024)
+    );
+
+  return (
+    parseFloat(
+      (
+        bytes /
+        Math.pow(1024,i)
+      ).toFixed(2)
+    )
+    + " "
+    + units[i]
+  );
+
+}
+
+</script>
+
+</body>
+</html>
