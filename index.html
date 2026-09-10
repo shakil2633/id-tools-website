@@ -4,535 +4,768 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ID Tools Hub — Free Online Image, PDF & Document Tools</title>
+<title>ID Tools Hub — Free Online Tools</title>
 
-<meta name="description" content="Free online tools for images, PDF, ID cards, passport photos, CVs, QR codes and documents. Fast, simple and mobile friendly.">
-<meta name="keywords" content="image tools, pdf tools, ID card tools, passport photo, image compressor, QR generator, CV maker">
+<meta name="description" content="Free online image, PDF, ID card, passport photo, CV and document tools. Fast, simple and mobile friendly.">
+<meta name="keywords" content="online tools, image tools, PDF tools, ID card tools, passport photo, CV maker, QR generator">
 <meta name="robots" content="index, follow">
+<meta name="author" content="ID Tools Hub">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%233b82f6'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-size='55' fill='white'%3E⚡%3C/text%3E%3C/svg%3E">
 
 <style>
+
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
 html{
-  scroll-behavior:smooth;
+scroll-behavior:smooth;
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#07111f;
-  color:#eef6ff;
-  line-height:1.6;
-  overflow-x:hidden;
+font-family:Arial,Helvetica,sans-serif;
+background:#060b16;
+color:#f1f5f9;
+line-height:1.6;
+overflow-x:hidden;
+transition:.3s;
 }
 
 body.light{
-  background:#f4f8fc;
-  color:#102033;
+background:#f5f8fc;
+color:#102033;
 }
 
 a{
-  text-decoration:none;
-  color:inherit;
+text-decoration:none;
+color:inherit;
 }
 
-button{
-  font-family:inherit;
+button,
+input{
+font-family:inherit;
 }
 
-/* ===== HEADER ===== */
+/* ================= HEADER ================= */
 
 header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(7,17,31,.82);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(255,255,255,.08);
+position:sticky;
+top:0;
+z-index:999;
+background:rgba(6,11,22,.78);
+backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .light header{
-  background:rgba(255,255,255,.85);
-  border-bottom:1px solid #dfe7ef;
+background:rgba(255,255,255,.82);
+border-color:#e3eaf2;
 }
 
 .nav{
-  max-width:1200px;
-  margin:auto;
-  padding:15px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
+max-width:1200px;
+margin:auto;
+height:72px;
+padding:0 18px;
+display:flex;
+align-items:center;
+justify-content:space-between;
 }
 
 .logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:21px;
-  font-weight:800;
+display:flex;
+align-items:center;
+gap:10px;
+font-size:20px;
+font-weight:800;
 }
 
 .logo-icon{
-  width:42px;
-  height:42px;
-  border-radius:13px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#38bdf8,#6366f1);
-  box-shadow:0 8px 25px rgba(56,189,248,.25);
-  font-size:22px;
+width:43px;
+height:43px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:14px;
+background:linear-gradient(135deg,#0ea5e9,#6366f1);
+font-size:23px;
+box-shadow:0 8px 25px rgba(37,99,235,.35);
 }
 
-.logo span{
-  background:linear-gradient(90deg,#38bdf8,#818cf8);
-  -webkit-background-clip:text;
-  color:transparent;
+.logo-text span{
+background:linear-gradient(90deg,#38bdf8,#818cf8);
+-webkit-background-clip:text;
+color:transparent;
 }
 
 .nav-links{
-  display:flex;
-  align-items:center;
-  gap:25px;
+display:flex;
+gap:26px;
+align-items:center;
 }
 
 .nav-links a{
-  font-size:14px;
-  opacity:.85;
+font-size:14px;
+opacity:.82;
+transition:.2s;
 }
 
 .nav-links a:hover{
-  color:#38bdf8;
+color:#38bdf8;
+opacity:1;
 }
 
 .theme-btn{
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.06);
-  color:inherit;
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:18px;
+width:42px;
+height:42px;
+border-radius:13px;
+border:1px solid rgba(255,255,255,.1);
+background:rgba(255,255,255,.06);
+color:inherit;
+cursor:pointer;
+font-size:18px;
 }
 
-/* ===== HERO ===== */
+/* ================= HERO ================= */
 
 .hero{
-  position:relative;
-  max-width:1200px;
-  margin:auto;
-  padding:90px 20px 65px;
-  text-align:center;
+position:relative;
+max-width:1200px;
+margin:auto;
+padding:90px 20px 60px;
+text-align:center;
 }
 
-.hero:before,
-.hero:after{
-  content:"";
-  position:absolute;
-  border-radius:50%;
-  filter:blur(70px);
-  z-index:-1;
+.glow{
+position:absolute;
+border-radius:50%;
+filter:blur(80px);
+pointer-events:none;
+z-index:-1;
 }
 
-.hero:before{
-  width:250px;
-  height:250px;
-  background:#2563eb;
-  opacity:.25;
-  left:10%;
-  top:50px;
+.glow.one{
+width:250px;
+height:250px;
+background:#2563eb;
+opacity:.22;
+left:5%;
+top:30px;
 }
 
-.hero:after{
-  width:220px;
-  height:220px;
-  background:#06b6d4;
-  opacity:.2;
-  right:10%;
-  top:100px;
+.glow.two{
+width:240px;
+height:240px;
+background:#06b6d4;
+opacity:.16;
+right:5%;
+top:100px;
 }
 
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  padding:8px 15px;
-  border-radius:30px;
-  background:rgba(56,189,248,.1);
-  border:1px solid rgba(56,189,248,.25);
-  color:#7dd3fc;
-  font-size:13px;
-  margin-bottom:22px;
+.hero-badge{
+display:inline-flex;
+align-items:center;
+gap:7px;
+padding:8px 15px;
+border-radius:30px;
+background:rgba(56,189,248,.09);
+border:1px solid rgba(56,189,248,.2);
+color:#7dd3fc;
+font-size:13px;
+margin-bottom:22px;
 }
 
 .hero h1{
-  font-size:clamp(40px,7vw,76px);
-  line-height:1.05;
-  max-width:900px;
-  margin:auto;
-  letter-spacing:-2px;
+font-size:clamp(42px,7vw,78px);
+line-height:1.02;
+letter-spacing:-2.5px;
+max-width:950px;
+margin:auto;
 }
 
-.gradient-text{
-  background:linear-gradient(90deg,#38bdf8,#818cf8,#c084fc);
-  -webkit-background-clip:text;
-  color:transparent;
+.gradient{
+background:linear-gradient(90deg,#38bdf8,#6366f1,#c084fc);
+-webkit-background-clip:text;
+color:transparent;
 }
 
 .hero p{
-  max-width:700px;
-  margin:25px auto;
-  color:#a8b8c9;
-  font-size:17px;
+max-width:720px;
+margin:24px auto;
+color:#94a8bd;
+font-size:17px;
 }
 
 .light .hero p{
-  color:#5f7185;
+color:#617286;
 }
 
-.hero-buttons{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:28px;
+.hero-actions{
+display:flex;
+justify-content:center;
+gap:12px;
+flex-wrap:wrap;
+margin-top:27px;
 }
 
-.primary-btn,
-.secondary-btn{
-  border:none;
-  border-radius:14px;
-  padding:14px 23px;
-  font-weight:700;
-  cursor:pointer;
-  font-size:15px;
+.primary{
+padding:14px 22px;
+border:0;
+border-radius:14px;
+background:linear-gradient(135deg,#0ea5e9,#6366f1);
+color:white;
+font-weight:700;
+cursor:pointer;
+box-shadow:0 12px 30px rgba(37,99,235,.28);
+transition:.25s;
 }
 
-.primary-btn{
-  background:linear-gradient(135deg,#0ea5e9,#6366f1);
-  color:white;
-  box-shadow:0 10px 30px rgba(37,99,235,.25);
+.primary:hover{
+transform:translateY(-2px);
+box-shadow:0 15px 35px rgba(37,99,235,.38);
 }
 
-.secondary-btn{
-  background:rgba(255,255,255,.07);
-  color:inherit;
-  border:1px solid rgba(255,255,255,.1);
+.secondary{
+padding:14px 22px;
+border-radius:14px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.1);
+color:inherit;
+font-weight:700;
+cursor:pointer;
 }
 
-/* ===== SEARCH ===== */
-
-.search-area{
-  max-width:700px;
-  margin:15px auto 45px;
-  position:relative;
+.light .secondary{
+background:white;
+border-color:#dce5ee;
 }
 
-.search-area input{
-  width:100%;
-  padding:17px 20px 17px 50px;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.06);
-  color:inherit;
-  outline:none;
-  font-size:15px;
+/* ================= STATS ================= */
+
+.stats{
+max-width:850px;
+margin:10px auto 50px;
+padding:0 18px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
 }
 
-.light .search-area input{
-  background:white;
-  border-color:#dbe4ed;
+.stat{
+padding:20px;
+border-radius:18px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.07);
+text-align:center;
+}
+
+.light .stat{
+background:white;
+border-color:#e3eaf2;
+}
+
+.stat strong{
+display:block;
+font-size:25px;
+}
+
+.stat span{
+font-size:12px;
+color:#8799ad;
+}
+
+/* ================= SEARCH ================= */
+
+.search-wrap{
+max-width:700px;
+margin:0 auto 45px;
+padding:0 18px;
+position:relative;
+}
+
+.search{
+width:100%;
+height:56px;
+padding:0 20px 0 52px;
+border-radius:17px;
+border:1px solid rgba(255,255,255,.1);
+background:rgba(255,255,255,.055);
+color:inherit;
+outline:none;
+font-size:15px;
+}
+
+.light .search{
+background:white;
+border-color:#dce5ee;
+}
+
+.search:focus{
+border-color:#38bdf8;
+box-shadow:0 0 0 3px rgba(56,189,248,.1);
 }
 
 .search-icon{
-  position:absolute;
-  left:18px;
-  top:14px;
-  font-size:20px;
+position:absolute;
+left:35px;
+top:14px;
+font-size:21px;
 }
 
-/* ===== SECTION ===== */
+/* ================= SECTION ================= */
 
 .section{
-  max-width:1200px;
-  margin:auto;
-  padding:40px 20px 70px;
+max-width:1200px;
+margin:auto;
+padding:25px 18px 65px;
 }
 
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:20px;
-  margin-bottom:25px;
+.section-head{
+display:flex;
+align-items:end;
+justify-content:space-between;
+margin-bottom:22px;
+gap:15px;
 }
 
-.section-title h2{
-  font-size:30px;
+.section-head h2{
+font-size:30px;
 }
 
-.section-title p{
-  color:#8ea1b5;
-  font-size:14px;
+.section-head p{
+color:#8295aa;
+font-size:13px;
 }
 
-/* ===== FILTER ===== */
+/* ================= FILTERS ================= */
 
 .filters{
-  display:flex;
-  gap:9px;
-  overflow-x:auto;
-  padding-bottom:10px;
-  margin-bottom:25px;
+display:flex;
+gap:8px;
+overflow-x:auto;
+padding-bottom:12px;
+margin-bottom:22px;
+scrollbar-width:none;
 }
 
-.filters button{
-  white-space:nowrap;
-  padding:9px 16px;
-  border-radius:25px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.05);
-  color:inherit;
-  cursor:pointer;
+.filters::-webkit-scrollbar{
+display:none;
 }
 
-.filters button.active,
-.filters button:hover{
-  background:#2563eb;
-  color:white;
+.filter{
+white-space:nowrap;
+padding:9px 16px;
+border-radius:25px;
+border:1px solid rgba(255,255,255,.09);
+background:rgba(255,255,255,.045);
+color:inherit;
+cursor:pointer;
+font-size:13px;
 }
 
-/* ===== GRID ===== */
+.light .filter{
+background:white;
+border-color:#dce5ee;
+}
+
+.filter.active{
+background:#2563eb;
+color:white;
+border-color:#2563eb;
+}
+
+/* ================= TOOLS GRID ================= */
 
 .tool-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:17px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
 }
 
 .tool-card{
-  position:relative;
-  padding:23px;
-  min-height:210px;
-  border-radius:20px;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.09);
-  backdrop-filter:blur(12px);
-  transition:.3s;
-  overflow:hidden;
+position:relative;
+padding:22px;
+min-height:215px;
+border-radius:21px;
+background:rgba(255,255,255,.045);
+border:1px solid rgba(255,255,255,.085);
+overflow:hidden;
+transition:.3s;
 }
 
 .light .tool-card{
-  background:white;
-  border-color:#e1e8ef;
-  box-shadow:0 8px 25px rgba(15,23,42,.05);
+background:white;
+border-color:#e1e8ef;
+box-shadow:0 8px 25px rgba(15,23,42,.045);
+}
+
+.tool-card:before{
+content:"";
+position:absolute;
+width:120px;
+height:120px;
+right:-60px;
+top:-60px;
+background:#2563eb;
+opacity:.07;
+border-radius:50%;
 }
 
 .tool-card:hover{
-  transform:translateY(-6px);
-  border-color:rgba(56,189,248,.4);
-  box-shadow:0 18px 45px rgba(0,0,0,.2);
+transform:translateY(-6px);
+border-color:rgba(56,189,248,.4);
+box-shadow:0 18px 45px rgba(0,0,0,.2);
 }
 
 .tool-icon{
-  width:52px;
-  height:52px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:15px;
-  background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(99,102,241,.2));
-  font-size:25px;
-  margin-bottom:18px;
+width:52px;
+height:52px;
+border-radius:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:25px;
+background:linear-gradient(135deg,rgba(14,165,233,.13),rgba(99,102,241,.2));
+margin-bottom:17px;
 }
 
 .tool-card h3{
-  font-size:17px;
-  margin-bottom:7px;
+font-size:17px;
+margin-bottom:7px;
 }
 
 .tool-card p{
-  color:#8fa2b5;
-  font-size:13px;
-  min-height:42px;
+font-size:13px;
+color:#8da0b4;
+min-height:41px;
 }
 
-.open-btn{
-  display:inline-block;
-  margin-top:17px;
-  padding:9px 14px;
-  border-radius:10px;
-  background:rgba(37,99,235,.15);
-  color:#60a5fa;
-  font-size:13px;
-  font-weight:700;
+.open{
+display:inline-block;
+margin-top:15px;
+font-size:13px;
+font-weight:700;
+color:#60a5fa;
 }
 
-.badge-popular{
-  position:absolute;
-  right:13px;
-  top:13px;
-  font-size:10px;
-  padding:4px 8px;
-  border-radius:20px;
-  background:rgba(16,185,129,.12);
-  color:#34d399;
+.popular{
+position:absolute;
+right:13px;
+top:13px;
+padding:4px 8px;
+border-radius:20px;
+font-size:9px;
+font-weight:700;
+background:rgba(16,185,129,.12);
+color:#34d399;
 }
 
-/* ===== OFFICE ===== */
+/* ================= OFFICE ================= */
 
 .office-box{
-  margin-top:20px;
-  padding:35px;
-  border-radius:25px;
-  background:linear-gradient(135deg,rgba(37,99,235,.13),rgba(124,58,237,.13));
-  border:1px solid rgba(99,102,241,.2);
+padding:32px;
+border-radius:26px;
+background:linear-gradient(135deg,rgba(37,99,235,.13),rgba(124,58,237,.12));
+border:1px solid rgba(99,102,241,.2);
 }
 
 .office-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin-top:25px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px;
 }
 
 .office-card{
-  padding:20px;
-  border-radius:17px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.08);
+padding:20px;
+border-radius:17px;
+background:rgba(255,255,255,.055);
+border:1px solid rgba(255,255,255,.07);
 }
 
 .office-card h3{
-  margin-bottom:5px;
+margin-bottom:5px;
 }
 
 .office-card p{
-  color:#91a4b7;
-  font-size:13px;
+font-size:13px;
+color:#91a4b8;
 }
 
 .office-card a{
-  display:inline-block;
-  margin-top:12px;
-  color:#60a5fa;
-  font-size:13px;
-  font-weight:bold;
+display:inline-block;
+margin-top:12px;
+color:#60a5fa;
+font-size:13px;
+font-weight:700;
 }
 
-/* ===== CTA ===== */
+/* ================= FEATURES ================= */
+
+.feature-card{
+padding:27px;
+border-radius:21px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.light .feature-card{
+background:white;
+border-color:#e2e9f0;
+}
+
+.feature-card .big{
+font-size:28px;
+margin-bottom:13px;
+}
+
+.feature-card h3{
+margin-bottom:7px;
+}
+
+.feature-card p{
+font-size:13px;
+color:#8b9db0;
+}
+
+/* ================= CTA ================= */
 
 .cta{
-  max-width:1160px;
-  margin:30px auto 70px;
-  padding:55px 25px;
-  text-align:center;
-  border-radius:28px;
-  background:linear-gradient(135deg,#172554,#312e81);
-  position:relative;
-  overflow:hidden;
+max-width:1160px;
+margin:10px auto 70px;
+padding:58px 20px;
+border-radius:28px;
+text-align:center;
+background:linear-gradient(135deg,#172554,#312e81);
+overflow:hidden;
+position:relative;
 }
 
 .cta h2{
-  font-size:35px;
-  margin-bottom:10px;
+font-size:35px;
+margin-bottom:10px;
 }
 
 .cta p{
-  color:#c1cee0;
-  margin-bottom:23px;
+color:#bfcee0;
+margin-bottom:22px;
 }
 
-/* ===== FOOTER ===== */
+/* ================= FOOTER ================= */
 
 footer{
-  border-top:1px solid rgba(255,255,255,.08);
-  padding:35px 20px 80px;
-  text-align:center;
-  color:#8194a8;
-  font-size:13px;
+border-top:1px solid rgba(255,255,255,.08);
+padding:35px 18px 90px;
+text-align:center;
+color:#8093a8;
+font-size:13px;
 }
 
 .footer-links{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:20px;
-  margin:15px 0;
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+margin:17px 0;
 }
 
 .footer-links a:hover{
-  color:#38bdf8;
+color:#38bdf8;
 }
 
-/* ===== MOBILE ===== */
+/* ================= TOAST ================= */
 
-@media(max-width:900px){
-  .tool-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+.toast{
+position:fixed;
+bottom:25px;
+left:50%;
+transform:translateX(-50%) translateY(100px);
+background:#111827;
+color:white;
+padding:12px 18px;
+border-radius:12px;
+font-size:13px;
+opacity:0;
+transition:.3s;
+z-index:2000;
+}
 
-  .office-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+.toast.show{
+transform:translateX(-50%) translateY(0);
+opacity:1;
+}
 
-  .nav-links{
-    display:none;
-  }
+/* ================= TOP BUTTON ================= */
+
+.top-btn{
+position:fixed;
+right:18px;
+bottom:75px;
+width:43px;
+height:43px;
+border-radius:13px;
+border:0;
+background:#2563eb;
+color:white;
+font-size:18px;
+cursor:pointer;
+display:none;
+z-index:1000;
+}
+
+/* ================= MOBILE NAV ================= */
+
+.mobile-nav{
+display:none;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:950px){
+
+.tool-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.office-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.nav-links{
+display:none;
+}
+
 }
 
 @media(max-width:600px){
-  .hero{
-    padding:65px 17px 45px;
-  }
 
-  .hero h1{
-    letter-spacing:-1px;
-  }
-
-  .hero p{
-    font-size:15px;
-  }
-
-  .section{
-    padding:30px 15px 50px;
-  }
-
-  .section-title{
-    display:block;
-  }
-
-  .section-title p{
-    margin-top:5px;
-  }
-
-  .tool-grid{
-    grid-template-columns:1fr;
-  }
-
-  .office-grid{
-    grid-template-columns:1fr;
-  }
-
-  .office-box{
-    padding:22px;
-  }
-
-  .cta{
-    margin:10px 15px 50px;
-    padding:40px 20px;
-  }
-
-  .cta h2{
-    font-size:27px;
-  }
+.nav{
+height:65px;
 }
+
+.logo{
+font-size:17px;
+}
+
+.logo-icon{
+width:39px;
+height:39px;
+font-size:20px;
+}
+
+.hero{
+padding:65px 17px 45px;
+}
+
+.hero h1{
+font-size:45px;
+letter-spacing:-1.5px;
+}
+
+.hero p{
+font-size:15px;
+}
+
+.stats{
+grid-template-columns:repeat(3,1fr);
+margin-bottom:35px;
+}
+
+.stat{
+padding:15px 7px;
+}
+
+.stat strong{
+font-size:20px;
+}
+
+.stat span{
+font-size:10px;
+}
+
+.section{
+padding:25px 15px 50px;
+}
+
+.section-head{
+display:block;
+}
+
+.section-head p{
+margin-top:5px;
+}
+
+.tool-grid{
+grid-template-columns:1fr;
+}
+
+.office-grid{
+grid-template-columns:1fr;
+}
+
+.office-box{
+padding:22px;
+}
+
+.cta{
+margin:10px 15px 55px;
+padding:42px 18px;
+}
+
+.cta h2{
+font-size:28px;
+}
+
+.mobile-nav{
+display:flex;
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+height:62px;
+background:rgba(6,11,22,.94);
+backdrop-filter:blur(18px);
+border-top:1px solid rgba(255,255,255,.1);
+z-index:998;
+justify-content:space-around;
+align-items:center;
+}
+
+.light .mobile-nav{
+background:rgba(255,255,255,.95);
+border-color:#dfe7ef;
+}
+
+.mobile-nav a{
+font-size:11px;
+text-align:center;
+color:#9aacbe;
+}
+
+.mobile-nav span{
+display:block;
+font-size:20px;
+}
+
+.mobile-nav a:hover{
+color:#38bdf8;
+}
+
+.top-btn{
+bottom:78px;
+right:13px;
+}
+
+}
+
+/* ================= HIDDEN ================= */
+
+.hidden{
+display:none!important;
+}
+
 </style>
 </head>
 
@@ -541,23 +774,34 @@ footer{
 <!-- HEADER -->
 
 <header>
-  <div class="nav">
 
-    <a href="index.html" class="logo">
-      <div class="logo-icon">⚡</div>
-      <div>ID <span>Tools Hub</span></div>
-    </a>
+<div class="nav">
 
-    <div class="nav-links">
-      <a href="#tools">Tools</a>
-      <a href="#office">Office</a>
-      <a href="#about">About</a>
-      <a href="privacy.html">Privacy</a>
-    </div>
+<a href="index.html" class="logo">
 
-    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+<div class="logo-icon">⚡</div>
 
-  </div>
+<div class="logo-text">
+ID <span>Tools Hub</span>
+</div>
+
+</a>
+
+<div class="nav-links">
+
+<a href="#tools">Tools</a>
+<a href="#office">Office</a>
+<a href="#features">Features</a>
+<a href="privacy.html">Privacy</a>
+
+</div>
+
+<button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
+🌙
+</button>
+
+</div>
+
 </header>
 
 
@@ -565,43 +809,79 @@ footer{
 
 <section class="hero">
 
-  <div class="badge">
-    ✨ Free • Fast • Mobile Friendly
-  </div>
+<div class="glow one"></div>
+<div class="glow two"></div>
 
-  <h1>
-    Powerful Tools.
-    <span class="gradient-text">Simple Results.</span>
-  </h1>
+<div class="hero-badge">
+✨ Free • Fast • Mobile Friendly
+</div>
 
-  <p>
-    Edit images, create PDFs, make passport photos,
-    build CVs and use useful document tools — all in one place.
-  </p>
+<h1>
+Everything You Need.
+<br>
+<span class="gradient">In One Place.</span>
+</h1>
 
-  <div class="hero-buttons">
-    <a href="#tools">
-      <button class="primary-btn">🚀 Explore Tools</button>
-    </a>
+<p>
+Edit images, create PDFs, make passport photos,
+build CVs and use everyday digital tools — directly from your browser.
+</p>
 
-    <a href="#office">
-      <button class="secondary-btn">📄 Office Tools</button>
-    </a>
-  </div>
+<div class="hero-actions">
+
+<a href="#tools">
+<button class="primary">
+🚀 Explore Tools
+</button>
+</a>
+
+<a href="#office">
+<button class="secondary">
+📄 Office Tools
+</button>
+</a>
+
+</div>
 
 </section>
 
 
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+<strong id="toolCount">18+</strong>
+<span>Useful Tools</span>
+</div>
+
+<div class="stat">
+<strong>100%</strong>
+<span>Browser Based</span>
+</div>
+
+<div class="stat">
+<strong>📱</strong>
+<span>Mobile Ready</span>
+</div>
+
+</div>
+
+
 <!-- SEARCH -->
 
-<div class="search-area">
-  <span class="search-icon">🔎</span>
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="Search tools..."
-    onkeyup="searchTools()"
-  >
+<div class="search-wrap">
+
+<span class="search-icon">🔎</span>
+
+<input
+class="search"
+id="searchInput"
+type="text"
+placeholder="Search a tool..."
+oninput="searchTools()"
+>
+
 </div>
 
 
@@ -609,338 +889,407 @@ footer{
 
 <section class="section" id="tools">
 
-  <div class="section-title">
-    <div>
-      <h2>🧰 Popular Tools</h2>
-      <p>Useful tools for your everyday work</p>
-    </div>
-  </div>
+<div class="section-head">
 
-  <div class="filters">
+<div>
+<h2>🧰 All Tools</h2>
+<p>Choose a tool and get started</p>
+</div>
 
-    <button class="active" onclick="filterTools('all',this)">
-      All
-    </button>
+</div>
 
-    <button onclick="filterTools('image',this)">
-      🖼️ Image
-    </button>
 
-    <button onclick="filterTools('pdf',this)">
-      📄 PDF
-    </button>
+<!-- FILTERS -->
 
-    <button onclick="filterTools('id',this)">
-      🪪 ID Card
-    </button>
+<div class="filters">
 
-    <button onclick="filterTools('photo',this)">
-      📸 Photo
-    </button>
+<button class="filter active"
+onclick="filterTools('all',this)">
+All
+</button>
 
-    <button onclick="filterTools('document',this)">
-      📝 Document
-    </button>
+<button class="filter"
+onclick="filterTools('image',this)">
+🖼️ Image
+</button>
 
-  </div>
+<button class="filter"
+onclick="filterTools('pdf',this)">
+📄 PDF
+</button>
 
+<button class="filter"
+onclick="filterTools('id',this)">
+🪪 ID Card
+</button>
 
-  <div class="tool-grid" id="toolGrid">
+<button class="filter"
+onclick="filterTools('photo',this)">
+📸 Photo
+</button>
 
+<button class="filter"
+onclick="filterTools('document',this)">
+📝 Document
+</button>
 
-    <div class="tool-card" data-category="image" data-name="image cropper">
+</div>
 
-      <div class="badge-popular">POPULAR</div>
 
-      <div class="tool-icon">✂️</div>
+<div class="tool-grid" id="toolGrid">
 
-      <h3>Image Cropper</h3>
 
-      <p>Crop and adjust your images quickly.</p>
+<!-- 1 -->
 
-      <a class="open-btn" href="cropper.html">
-        Open Tool →
-      </a>
+<div class="tool-card"
+data-category="image"
+data-name="image cropper">
 
-    </div>
+<div class="popular">POPULAR</div>
 
+<div class="tool-icon">✂️</div>
 
-    <div class="tool-card" data-category="pdf" data-name="image to pdf">
+<h3>Image Cropper</h3>
 
-      <div class="tool-icon">📄</div>
+<p>Crop images with useful aspect ratios.</p>
 
-      <h3>Image to PDF</h3>
+<a class="open" href="cropper.html">
+Open Tool →
+</a>
 
-      <p>Convert multiple images into a PDF.</p>
+</div>
 
-      <a class="open-btn" href="image-to-pdf.html">
-        Open Tool →
-      </a>
 
-    </div>
+<!-- 2 -->
 
+<div class="tool-card"
+data-category="pdf"
+data-name="image to pdf">
 
-    <div class="tool-card" data-category="id" data-name="id card pdf">
+<div class="popular">POPULAR</div>
 
-      <div class="badge-popular">POPULAR</div>
+<div class="tool-icon">📄</div>
 
-      <div class="tool-icon">🪪</div>
+<h3>Image to PDF</h3>
 
-      <h3>ID Card → PDF</h3>
+<p>Convert images into a printable PDF.</p>
 
-      <p>Place ID card front and back into PDF.</p>
+<a class="open" href="image-to-pdf.html">
+Open Tool →
+</a>
 
-      <a class="open-btn" href="idcard-pdf.html">
-        Open Tool →
-      </a>
+</div>
 
-    </div>
 
+<!-- 3 -->
 
-    <div class="tool-card" data-category="image" data-name="image compressor">
+<div class="tool-card"
+data-category="id"
+data-name="id card pdf">
 
-      <div class="tool-icon">📦</div>
+<div class="tool-icon">🪪</div>
 
-      <h3>Image Compressor</h3>
+<h3>ID Card → PDF</h3>
 
-      <p>Reduce image file size while keeping quality.</p>
+<p>Create PDF documents from ID card images.</p>
 
-      <a class="open-btn" href="image-compressor.html">
-        Open Tool →
-      </a>
+<a class="open" href="idcard-pdf.html">
+Open Tool →
+</a>
 
-    </div>
+</div>
 
 
-    <div class="tool-card" data-category="image" data-name="image resizer">
+<!-- 4 -->
 
-      <div class="tool-icon">📐</div>
+<div class="tool-card"
+data-category="image"
+data-name="image compressor">
 
-      <h3>Image Resizer</h3>
+<div class="tool-icon">📦</div>
 
-      <p>Resize images to your required dimensions.</p>
+<h3>Image Compressor</h3>
 
-      <a class="open-btn" href="image-resizer.html">
-        Open Tool →
-      </a>
+<p>Reduce image size while keeping quality.</p>
 
-    </div>
+<a class="open" href="image-compressor.html">
+Open Tool →
+</a>
 
+</div>
 
-    <div class="tool-card" data-category="image" data-name="image converter">
 
-      <div class="tool-icon">🔄</div>
+<!-- 5 -->
 
-      <h3>Image Converter</h3>
+<div class="tool-card"
+data-category="image"
+data-name="image resizer">
 
-      <p>Convert JPG, PNG and WebP images.</p>
+<div class="tool-icon">📐</div>
 
-      <a class="open-btn" href="image-converter.html">
-        Open Tool →
-      </a>
+<h3>Image Resizer</h3>
 
-    </div>
+<p>Resize images to your required dimensions.</p>
 
+<a class="open" href="image-resizer.html">
+Open Tool →
+</a>
 
-    <div class="tool-card" data-category="photo" data-name="passport photo">
+</div>
 
-      <div class="badge-popular">POPULAR</div>
 
-      <div class="tool-icon">📸</div>
+<!-- 6 -->
 
-      <h3>Passport Photo Maker</h3>
+<div class="tool-card"
+data-category="image"
+data-name="image converter">
 
-      <p>Create printable passport-size photos.</p>
+<div class="tool-icon">🔄</div>
 
-      <a class="open-btn" href="passport-photo.html">
-        Open Tool →
-      </a>
+<h3>Image Converter</h3>
 
-    </div>
+<p>Convert JPG, PNG and WebP formats.</p>
 
+<a class="open" href="image-converter.html">
+Open Tool →
+</a>
 
-    <div class="tool-card" data-category="document" data-name="cv maker resume">
+</div>
 
-      <div class="tool-icon">💼</div>
 
-      <h3>CV Maker</h3>
+<!-- 7 -->
 
-      <p>Create a professional CV easily.</p>
+<div class="tool-card"
+data-category="photo"
+data-name="passport photo">
 
-      <a class="open-btn" href="cv-maker.html">
-        Open Tool →
-      </a>
+<div class="popular">POPULAR</div>
 
-    </div>
+<div class="tool-icon">📸</div>
 
+<h3>Passport Photo Maker</h3>
 
-    <div class="tool-card" data-category="image" data-name="watermark">
+<p>Create printable passport-size photos.</p>
 
-      <div class="tool-icon">💧</div>
+<a class="open" href="passport-photo.html">
+Open Tool →
+</a>
 
-      <h3>Image Watermark</h3>
+</div>
 
-      <p>Add custom text watermarks to images.</p>
 
-      <a class="open-btn" href="image-watermark.html">
-        Open Tool →
-      </a>
+<!-- 8 -->
 
-    </div>
+<div class="tool-card"
+data-category="document"
+data-name="cv maker resume">
 
+<div class="tool-icon">💼</div>
 
-    <div class="tool-card" data-category="image" data-name="rotate flip">
+<h3>CV Maker</h3>
 
-      <div class="tool-icon">🔃</div>
+<p>Create a simple professional CV.</p>
 
-      <h3>Image Rotator</h3>
+<a class="open" href="cv-maker.html">
+Open Tool →
+</a>
 
-      <p>Rotate and flip images easily.</p>
+</div>
 
-      <a class="open-btn" href="image-rotate.html">
-        Open Tool →
-      </a>
 
-    </div>
+<!-- 9 -->
 
+<div class="tool-card"
+data-category="image"
+data-name="image watermark">
 
-    <div class="tool-card" data-category="image" data-name="base64">
+<div class="tool-icon">💧</div>
 
-      <div class="tool-icon">🧑‍💻</div>
+<h3>Image Watermark</h3>
 
-      <h3>Image to Base64</h3>
+<p>Add custom text watermarks to images.</p>
 
-      <p>Convert images to Base64 for web development.</p>
+<a class="open" href="image-watermark.html">
+Open Tool →
+</a>
 
-      <a class="open-btn" href="image-to-base64.html">
-        Open Tool →
-      </a>
+</div>
 
-    </div>
 
+<!-- 10 -->
 
-    <div class="tool-card" data-category="image" data-name="color picker">
+<div class="tool-card"
+data-category="image"
+data-name="rotate flip image">
 
-      <div class="tool-icon">🎨</div>
+<div class="tool-icon">🔃</div>
 
-      <h3>Image Color Picker</h3>
+<h3>Image Rotator</h3>
 
-      <p>Pick HEX, RGB and HSL colors from images.</p>
+<p>Rotate and flip images easily.</p>
 
-      <a class="open-btn" href="image-color-picker.html">
-        Open Tool →
-      </a>
+<a class="open" href="image-rotate.html">
+Open Tool →
+</a>
 
-    </div>
+</div>
 
 
-    <div class="tool-card" data-category="id" data-name="id card joiner">
+<!-- 11 -->
 
-      <div class="tool-icon">🪪</div>
+<div class="tool-card"
+data-category="image"
+data-name="image base64">
 
-      <h3>ID Card Image Joiner</h3>
+<div class="tool-icon">🧑‍💻</div>
 
-      <p>Join ID card front and back images together.</p>
+<h3>Image to Base64</h3>
 
-      <a class="open-btn" href="idcard-joiner.html">
-        Open Tool →
-      </a>
+<p>Convert images to Base64 format.</p>
 
-    </div>
+<a class="open" href="image-to-base64.html">
+Open Tool →
+</a>
 
+</div>
 
-    <div class="tool-card" data-category="pdf" data-name="image pdf pro">
 
-      <div class="tool-icon">📑</div>
+<!-- 12 -->
 
-      <h3>Image → PDF Pro</h3>
+<div class="tool-card"
+data-category="image"
+data-name="image color picker">
 
-      <p>Create print-ready A4 PDF documents.</p>
+<div class="tool-icon">🎨</div>
 
-      <a class="open-btn" href="image-to-pdf-pro.html">
-        Open Tool →
-      </a>
+<h3>Image Color Picker</h3>
 
-    </div>
+<p>Pick HEX, RGB and HSL colors.</p>
 
+<a class="open" href="image-color-picker.html">
+Open Tool →
+</a>
 
-    <div class="tool-card" data-category="image" data-name="signature maker">
+</div>
 
-      <div class="tool-icon">✍️</div>
 
-      <h3>Signature Maker</h3>
+<!-- 13 -->
 
-      <p>Create a digital signature image.</p>
+<div class="tool-card"
+data-category="id"
+data-name="id card joiner">
 
-      <a class="open-btn" href="signature-maker.html">
-        Open Tool →
-      </a>
+<div class="tool-icon">🪪</div>
 
-    </div>
+<h3>ID Card Image Joiner</h3>
 
+<p>Join front and back ID images together.</p>
 
-    <div class="tool-card" data-category="image" data-name="metadata cleaner">
+<a class="open" href="idcard-joiner.html">
+Open Tool →
+</a>
 
-      <div class="tool-icon">🧹</div>
+</div>
 
-      <h3>Metadata Cleaner</h3>
 
-      <p>Clean image metadata by re-exporting images.</p>
+<!-- 14 -->
 
-      <a class="open-btn" href="metadata-cleaner.html">
-        Open Tool →
-      </a>
+<div class="tool-card"
+data-category="pdf"
+data-name="image pdf pro">
 
-    </div>
+<div class="tool-icon">📑</div>
 
+<h3>Image → PDF Pro</h3>
 
-    <div class="tool-card" data-category="pdf" data-name="pdf tools">
+<p>Create print-ready A4 PDF documents.</p>
 
-      <div class="tool-icon">📚</div>
+<a class="open" href="image-to-pdf-pro.html">
+Open Tool →
+</a>
 
-      <h3>PDF Tools</h3>
+</div>
 
-      <p>More PDF utilities are coming soon.</p>
 
-      <a class="open-btn" href="#coming">
-        Coming Soon →
-      </a>
+<!-- 15 -->
 
-    </div>
+<div class="tool-card"
+data-category="image"
+data-name="signature maker">
 
+<div class="tool-icon">✍️</div>
 
-    <div class="tool-card" data-category="image" data-name="background remover">
+<h3>Signature Maker</h3>
 
-      <div class="tool-icon">🪄</div>
+<p>Create a digital signature image.</p>
 
-      <h3>Background Remover</h3>
+<a class="open" href="#coming">
+Coming Soon →
+</a>
 
-      <p>Remove image backgrounds with ease.</p>
+</div>
 
-      <a class="open-btn" href="#coming">
-        Coming Soon →
-      </a>
 
-    </div>
+<!-- 16 -->
 
+<div class="tool-card"
+data-category="image"
+data-name="metadata cleaner">
 
-    <div class="tool-card" data-category="image" data-name="qr generator">
+<div class="tool-icon">🧹</div>
 
-      <div class="badge-popular">POPULAR</div>
+<h3>Metadata Cleaner</h3>
 
-      <div class="tool-icon">🔳</div>
+<p>Clean image metadata by re-exporting.</p>
 
-      <h3>QR Code Generator</h3>
+<a class="open" href="#coming">
+Coming Soon →
+</a>
 
-      <p>Create QR codes from text or links.</p>
+</div>
 
-      <a class="open-btn" href="qr-generator.html">
-        Open Tool →
-      </a>
 
-    </div>
+<!-- 17 -->
 
-  </div>
+<div class="tool-card"
+data-category="image"
+data-name="qr code generator">
+
+<div class="popular">POPULAR</div>
+
+<div class="tool-icon">🔳</div>
+
+<h3>QR Code Generator</h3>
+
+<p>Create QR codes from text or links.</p>
+
+<a class="open" href="qr-generator.html">
+Open Tool →
+</a>
+
+</div>
+
+
+<!-- 18 -->
+
+<div class="tool-card"
+data-category="image"
+data-name="background remover">
+
+<div class="tool-icon">🪄</div>
+
+<h3>Background Remover</h3>
+
+<p>Remove image backgrounds easily.</p>
+
+<a class="open" href="#coming">
+Coming Soon →
+</a>
+
+</div>
+
+
+</div>
 
 </section>
 
@@ -949,194 +1298,144 @@ footer{
 
 <section class="section" id="office">
 
-  <div class="office-box">
+<div class="office-box">
 
-    <div class="section-title">
-      <div>
-        <h2>📂 Microsoft Office</h2>
-        <p>Open Microsoft productivity tools quickly</p>
-      </div>
-    </div>
+<div class="section-head">
 
-    <div class="office-grid">
+<div>
+<h2>📂 Microsoft Office</h2>
+<p>Quick access to Microsoft productivity tools</p>
+</div>
 
-      <div class="office-card">
-        <h3>📝 Word</h3>
-        <p>Create and edit documents.</p>
-        <a href="https://www.office.com/launch/word" target="_blank">
-          Open Word →
-        </a>
-      </div>
+</div>
 
-      <div class="office-card">
-        <h3>📊 Excel</h3>
-        <p>Create spreadsheets and tables.</p>
-        <a href="https://www.office.com/launch/excel" target="_blank">
-          Open Excel →
-        </a>
-      </div>
+<div class="office-grid">
 
-      <div class="office-card">
-        <h3>📽️ PowerPoint</h3>
-        <p>Create presentations online.</p>
-        <a href="https://www.office.com/launch/powerpoint" target="_blank">
-          Open PowerPoint →
-        </a>
-      </div>
+<div class="office-card">
 
-      <div class="office-card">
-        <h3>☁️ OneDrive</h3>
-        <p>Access your cloud files.</p>
-        <a href="https://onedrive.live.com/" target="_blank">
-          Open OneDrive →
-        </a>
-      </div>
+<h3>📝 Word</h3>
 
-    </div>
+<p>Create and edit documents online.</p>
 
-  </div>
+<a href="https://www.office.com/launch/word"
+target="_blank">
+Open Word →
+</a>
 
-</section>
+</div>
 
 
-<!-- ABOUT -->
+<div class="office-card">
 
-<section class="section" id="about">
+<h3>📊 Excel</h3>
 
-  <div class="section-title">
-    <div>
-      <h2>⚡ Why ID Tools Hub?</h2>
-      <p>Designed for simple everyday tasks</p>
-    </div>
-  </div>
+<p>Create spreadsheets and tables.</p>
 
-  <div class="tool-grid">
+<a href="https://www.office.com/launch/excel"
+target="_blank">
+Open Excel →
+</a>
 
-    <div class="tool-card">
-      <div class="tool-icon">📱</div>
-      <h3>Mobile Friendly</h3>
-      <p>Works smoothly on phones, tablets and computers.</p>
-    </div>
+</div>
 
-    <div class="tool-card">
-      <div class="tool-icon">⚡</div>
-      <h3>Fast & Simple</h3>
-      <p>No complicated software installation is required.</p>
-    </div>
 
-    <div class="tool-card">
-      <div class="tool-icon">🔒</div>
-      <h3>Privacy Focused</h3>
-      <p>Many tools process files directly inside your browser.</p>
-    </div>
+<div class="office-card">
 
-    <div class="tool-card">
-      <div class="tool-icon">🆓</div>
-      <h3>Free Tools</h3>
-      <p>Useful utilities designed to be easy to access.</p>
-    </div>
+<h3>📽️ PowerPoint</h3>
 
-  </div>
+<p>Create presentations online.</p>
+
+<a href="https://www.office.com/launch/powerpoint"
+target="_blank">
+Open PowerPoint →
+</a>
+
+</div>
+
+
+<div class="office-card">
+
+<h3>☁️ OneDrive</h3>
+
+<p>Access your cloud files.</p>
+
+<a href="https://onedrive.live.com/"
+target="_blank">
+Open OneDrive →
+</a>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- CTA -->
+<!-- FEATURES -->
 
-<section class="cta" id="coming">
+<section class="section" id="features">
 
-  <h2>More Tools Are Coming 🚀</h2>
+<div class="section-head">
 
-  <p>
-    We're building more image, PDF, ID card and document utilities.
-  </p>
+<div>
+<h2>⚡ Why ID Tools Hub?</h2>
+<p>Built for everyday digital tasks</p>
+</div>
 
-  <a href="#tools">
-    <button class="primary-btn">
-      Explore Available Tools
-    </button>
-  </a>
-
-</section>
+</div>
 
 
-<!-- FOOTER -->
+<div class="tool-grid">
 
-<footer>
+<div class="feature-card">
 
-  <div class="logo" style="justify-content:center;">
-    <div class="logo-icon">⚡</div>
-    <div>ID <span>Tools Hub</span></div>
-  </div>
+<div class="big">📱</div>
 
-  <div class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="privacy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
-    <a href="contact.html">Contact</a>
-  </div>
+<h3>Mobile Friendly</h3>
 
-  <p>
-    © 2026 ID Tools Hub. All rights reserved.
-  </p>
+<p>
+Designed to work comfortably on phones,
+tablets and computers.
+</p>
 
-</footer>
+</div>
 
 
-<script>
+<div class="feature-card">
 
-/* ===== THEME ===== */
+<div class="big">⚡</div>
 
-function toggleTheme(){
+<h3>Fast & Simple</h3>
 
-  document.body.classList.toggle("light");
+<p>
+No complicated software installation.
+Open a tool and get started.
+</p>
 
-  const light =
-    document.body.classList.contains("light");
-
-  localStorage.setItem("theme", light ? "light" : "dark");
-
-  document.getElementById("themeBtn").textContent =
-    light ? "☀️" : "🌙";
-}
+</div>
 
 
-if(localStorage.getItem("theme") === "light"){
+<div class="feature-card">
 
-  document.body.classList.add("light");
+<div class="big">🔒</div>
 
-  document.getElementById("themeBtn").textContent = "☀️";
-}
+<h3>Privacy Focused</h3>
 
+<p>
+Many image utilities are designed to process
+files directly in your browser.
+</p>
 
-/* ===== SEARCH ===== */
-
-function searchTools(){
-
-  const search =
-    document.getElementById("searchInput")
-    .value
-    .toLowerCase()
-    .trim();
-
-  const cards =
-    document.querySelectorAll(".tool-card");
-
-  cards.forEach(card => {
-
-    const name =
-      (card.dataset.name || card.innerText)
-      .toLowerCase();
-
-    if(name.includes(search)){
-      card.style.display = "";
-    }else{
-      card.style.display = "none";
-    }
-
-  });
-
-}
+</div>
 
 
-/* ===== CATEGORY FILTER ==
+<div class="feature-card">
+
+<div class="big">🆓</div>
+
+<h3>Free to Use</h3>
+
+<p>
+Useful everyday utilities designed t
