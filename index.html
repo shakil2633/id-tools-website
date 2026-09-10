@@ -1,40 +1,652 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ID Tools - Free Online Tools</title>
+<meta charset="UTF-8">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+      content="Free online image, PDF and ID card tools. Fast, simple and privacy-friendly.">
+
+<meta name="keywords"
+      content="image tools, PDF tools, ID card PDF, image to PDF, image cropper">
+
+<title>ID Tools - Free Online Image & PDF Tools</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f6f8fc;
+  color: #172033;
+  line-height: 1.5;
+}
+
+/* NAVBAR */
+
+.navbar {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: auto;
+  padding: 15px 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  text-decoration: none;
+  font-size: 23px;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.nav-links {
+  display: flex;
+  gap: 18px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+}
+
+.nav-links a:hover {
+  color: #2563eb;
+}
+
+/* HERO */
+
+.hero {
+  text-align: center;
+  padding: 65px 20px 45px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.hero h1 span {
+  color: #2563eb;
+}
+
+.hero p {
+  max-width: 650px;
+  margin: auto;
+  color: #667085;
+  font-size: 17px;
+}
+
+/* SEARCH */
+
+.search-box {
+  max-width: 550px;
+  margin: 28px auto 0;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 15px 18px;
+
+  border: 1px solid #d9dee8;
+  border-radius: 12px;
+
+  font-size: 16px;
+  outline: none;
+}
+
+.search-box input:focus {
+  border-color: #2563eb;
+}
+
+/* TOOLS */
+
+.section {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.section-title h2 {
+  font-size: 28px;
+}
+
+.section-title p {
+  color: #777;
+  margin-top: 5px;
+}
+
+.tools {
+  display: grid;
+
+  grid-template-columns:
+  repeat(auto-fit, minmax(240px, 1fr));
+
+  gap: 20px;
+}
+
+.tool {
+  background: white;
+
+  padding: 25px;
+
+  border-radius: 16px;
+
+  border: 1px solid #e7eaf0;
+
+  transition: 0.2s;
+}
+
+.tool:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+  0 12px 30px rgba(0,0,0,0.08);
+}
+
+.icon {
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #eff6ff;
+
+  border-radius: 13px;
+
+  font-size: 28px;
+
+  margin-bottom: 15px;
+}
+
+.tool h3 {
+  margin-bottom: 8px;
+}
+
+.tool p {
+  color: #667085;
+  font-size: 14px;
+}
+
+.btn {
+  display: inline-block;
+
+  margin-top: 17px;
+
+  padding: 10px 18px;
+
+  background: #2563eb;
+
+  color: white;
+
+  text-decoration: none;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+}
+
+/* INFO */
+
+.info-section {
+  max-width: 900px;
+  margin: 60px auto;
+
+  padding: 30px 20px;
+
+  text-align: center;
+}
+
+.info-section h2 {
+  margin-bottom: 12px;
+}
+
+.info-section p {
+  color: #667085;
+}
+
+/* FOOTER */
+
+footer {
+  background: #111827;
+
+  color: white;
+
+  margin-top: 50px;
+
+  padding: 35px 20px;
+
+  text-align: center;
+}
+
+.footer-links {
+  margin-bottom: 15px;
+}
+
+.footer-links a {
+  color: #d1d5db;
+
+  text-decoration: none;
+
+  margin: 0 8px;
+
+  font-size: 14px;
+}
+
+footer p {
+  color: #9ca3af;
+
+  font-size: 13px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .nav-links {
+    gap: 10px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+  }
+
+  .hero {
+    padding: 45px 18px 35px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .tools {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+  <div class="nav-inner">
+
+    <a href="index.html"
+       class="logo">
+      🛠️ ID Tools
+    </a>
+
+    <div class="nav-links">
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="#tools">
+        Tools
+      </a>
+
+      <a href="#about">
+        About
+      </a>
+
+    </div>
+
+  </div>
+
+</nav>
+
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <h1>
+    Free <span>Online Tools</span>
+  </h1>
+
+  <p>
+    Simple and useful tools for images,
+    PDFs and documents. Fast and easy to use
+    directly from your browser.
+  </p>
+
+
+  <div class="search-box">
+
+    <input
+      type="text"
+      id="search"
+      placeholder="🔍 Search a tool..."
+      onkeyup="searchTools()"
+    >
+
+  </div>
+
+</section>
+
+
+
+<!-- TOOLS -->
+
+<section class="section"
+         id="tools">
+
+  <div class="section-title">
+
+    <h2>
+      Popular Tools
+    </h2>
+
+    <p>
+      Choose a tool to get started
+    </p>
+
+  </div>
+
+
+  <div class="tools"
+       id="toolList">
+
+
+    <!-- IMAGE CROPPER -->
+
+    <div class="tool">
+
+      <div class="icon">
+        ✂️
+      </div>
+
+      <h3>
+        Image Cropper
+      </h3>
+
+      <p>
+        Crop and resize your images
+        easily from your phone.
+      </p>
+
+      <a
+        href="cropper.html"
+        class="btn">
+        Open Tool
+      </a>
+
+    </div>
+
+
+    <!-- IMAGE PDF -->
+
+    <div class="tool">
+
+      <div class="icon">
+        📄
+      </div>
+
+      <h3>
+        Image to PDF
+      </h3>
+
+      <p>
+        Convert multiple images
+        into a PDF file.
+      </p>
+
+      <a
+        href="image-to-pdf.html"
+        class="btn">
+        Open Tool
+      </a>
+
+    </div>
+
+
+    <!-- ID CARD PDF -->
+
+    <div class="tool">
+
+      <div class="icon">
+        🪪
+      </div>
+
+      <h3>
+        ID Card to PDF
+      </h3>
+
+      <p>
+        Combine front and back
+        ID card images into PDF.
+      </p>
+
+      <a
+        href="idcard-pdf.html"
+        class="btn">
+        Open Tool
+      </a>
+
+    </div>
+
+
+    <!-- IMAGE COMPRESSOR -->
+
+    <div class="tool">
+
+      <div class="icon">
+        📦
+      </div>
+
+      <h3>
+        Image Compressor
+      </h3>
+
+      <p>
+        Reduce image file size
+        while keeping good quality.
+      </p>
+
+      <a
+        href="#"
+        class="btn">
+        Coming Soon
+      </a>
+
+    </div>
+
+
+    <!-- QR -->
+
+    <div class="tool">
+
+      <div class="icon">
+        🔳
+      </div>
+
+      <h3>
+        QR Generator
+      </h3>
+
+      <p>
+        Create QR codes quickly
+        and easily.
+      </p>
+
+      <a
+        href="#"
+        class="btn">
+        Coming Soon
+      </a>
+
+    </div>
+
+
+    <!-- CV -->
+
+    <div class="tool">
+
+      <div class="icon">
+        📝
+      </div>
+
+      <h3>
+        CV Maker
+      </h3>
+
+      <p>
+        Create a simple professional
+        CV online.
+      </p>
+
+      <a
+        href="#"
+        class="btn">
+        Coming Soon
+      </a>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ABOUT -->
+
+<section
+  class="info-section"
+  id="about">
+
+  <h2>
+    Simple. Fast. Private.
+  </h2>
+
+  <p>
+    ID Tools is designed to provide
+    useful online tools directly in
+    your browser. Wherever possible,
+    files are processed locally on
+    your device instead of being
+    uploaded to a server.
+  </p>
+
+</section>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="footer-links">
+
+    <a href="#">
+      Privacy Policy
+    </a>
+
+    <a href="#">
+      Terms
+    </a>
+
+    <a href="#">
+      Contact
+    </a>
+
+  </div>
+
+  <p>
+    © 2026 ID Tools. All rights reserved.
+  </p>
+
+</footer>
+
+
+
+<script>
+
+function searchTools() {
+
+  const input =
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase();
+
+  const tools =
+    document
+      .querySelectorAll(".tool");
+
+
+  tools.forEach(function(tool) {
+
+    const text =
+      tool.innerText.toLowerCase();
+
+
+    if (text.includes(input)) {
+
+      tool.style.display =
+        "block";
+
+    } else {
+
+      tool.style.display =
+        "none";
+
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #222;
-    }
+  });
 
-    header {
-      background: #ffffff;
-      padding: 18px 20px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
+}
 
-    header h1 {
-      color: #2563eb;
-      font-size: 28px;
-    }
+</script>
 
-    header p {
-      margin-top: 7px;
-      color: #666;
-    }
+
+</body>
+</html>    }
 
     .hero {
       text-align: center;
