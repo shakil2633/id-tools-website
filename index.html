@@ -4,16 +4,48 @@
 
 <meta charset="UTF-8">
 
-<title>ID Tools — Your Everyday Digital Toolbox</title>
+<title>ID Tools — Free Online Digital Toolbox</title>
 
 <meta name="description"
-content="ID Tools is your free digital toolbox for image, PDF, ID card, passport photo, QR and document utilities.">
+content="Free online image, PDF, ID card, passport photo, QR and document tools. Fast, simple and mobile friendly.">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta name="robots" content="index, follow">
 
 <style>
+
+/* =========================
+   ROOT
+========================= */
+
+:root{
+    --bg:#070b17;
+    --bg2:#0d1324;
+    --card:rgba(255,255,255,.055);
+    --card-hover:rgba(255,255,255,.09);
+    --text:#f8fafc;
+    --muted:#8995aa;
+    --border:rgba(255,255,255,.09);
+    --primary:#3b82f6;
+    --primary2:#8b5cf6;
+    --green:#22c55e;
+    --shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.light{
+    --bg:#f5f7fb;
+    --bg2:#ffffff;
+    --card:#ffffff;
+    --card-hover:#f8fbff;
+    --text:#111827;
+    --muted:#667085;
+    --border:#e5e9f0;
+    --primary:#2563eb;
+    --primary2:#7c3aed;
+    --shadow:0 15px 45px rgba(30,50,80,.10);
+}
+
 
 /* =========================
    RESET
@@ -36,53 +68,26 @@ body{
     Helvetica,
     sans-serif;
 
-    background:#070b17;
-    color:#f8fafc;
+    background:
+    radial-gradient(
+        circle at 10% 5%,
+        rgba(59,130,246,.13),
+        transparent 30%
+    ),
+    radial-gradient(
+        circle at 90% 20%,
+        rgba(139,92,246,.10),
+        transparent 30%
+    ),
+    var(--bg);
 
-    line-height:1.6;
-}
+    color:var(--text);
 
+    min-height:100vh;
 
-/* =========================
-   BACKGROUND
-========================= */
-
-body::before{
-    content:"";
-    position:fixed;
-
-    width:500px;
-    height:500px;
-
-    background:#2563eb;
-
-    filter:blur(180px);
-
-    opacity:.16;
-
-    top:-180px;
-    left:-150px;
-
-    pointer-events:none;
-}
-
-body::after{
-    content:"";
-    position:fixed;
-
-    width:450px;
-    height:450px;
-
-    background:#7c3aed;
-
-    filter:blur(180px);
-
-    opacity:.12;
-
-    right:-150px;
-    bottom:-150px;
-
-    pointer-events:none;
+    transition:
+    background .3s,
+    color .3s;
 }
 
 
@@ -93,61 +98,63 @@ body::after{
 .navbar{
     position:sticky;
     top:0;
-
     z-index:1000;
 
-    background:rgba(7,11,23,.78);
+    background:rgba(7,11,23,.75);
 
     backdrop-filter:blur(18px);
 
-    border-bottom:1px solid rgba(255,255,255,.08);
+    border-bottom:
+    1px solid var(--border);
+}
+
+.light .navbar{
+    background:rgba(255,255,255,.80);
 }
 
 .nav-inner{
     max-width:1200px;
-
     margin:auto;
 
-    padding:16px 22px;
+    padding:13px 20px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 }
 
 .logo{
+    color:var(--text);
     text-decoration:none;
 
-    color:white;
+    display:flex;
+    align-items:center;
 
     font-size:21px;
-
-    font-weight:800;
-
-    letter-spacing:-.5px;
+    font-weight:900;
 }
 
 .logo-box{
-    display:inline-flex;
+    width:38px;
+    height:38px;
 
+    display:flex;
     align-items:center;
-
     justify-content:center;
 
-    width:36px;
-    height:36px;
+    margin-right:9px;
 
-    margin-right:8px;
-
-    border-radius:10px;
+    border-radius:12px;
 
     background:
-    linear-gradient(135deg,#2563eb,#7c3aed);
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary2)
+    );
 
     box-shadow:
-    0 8px 25px rgba(37,99,235,.35);
+    0 8px 25px rgba(59,130,246,.30);
 }
 
 .logo span{
@@ -156,26 +163,44 @@ body::after{
 
 .nav-links{
     display:flex;
-
-    gap:28px;
+    gap:25px;
 
     list-style:none;
 }
 
 .nav-links a{
-    color:#aab4c7;
+    color:var(--muted);
 
     text-decoration:none;
 
-    font-size:14px;
-
-    font-weight:600;
+    font-size:13px;
+    font-weight:700;
 
     transition:.2s;
 }
 
 .nav-links a:hover{
-    color:white;
+    color:var(--text);
+}
+
+
+/* THEME BUTTON */
+
+.theme-btn{
+    border:1px solid var(--border);
+
+    background:var(--card);
+
+    color:var(--text);
+
+    width:38px;
+    height:38px;
+
+    border-radius:11px;
+
+    cursor:pointer;
+
+    font-size:17px;
 }
 
 
@@ -189,39 +214,37 @@ body::after{
     margin:auto;
 
     padding:
-    105px 22px
-    85px;
+    90px 20px
+    70px;
 
     text-align:center;
-
-    position:relative;
 }
 
-.hero-label{
+.badge-top{
     display:inline-flex;
-
     align-items:center;
-
     gap:8px;
 
-    padding:8px 15px;
+    padding:8px 14px;
+
+    border:
+    1px solid rgba(59,130,246,.25);
 
     border-radius:30px;
 
-    border:1px solid rgba(96,165,250,.25);
-
-    background:rgba(37,99,235,.10);
+    background:
+    rgba(59,130,246,.09);
 
     color:#93c5fd;
 
-    font-size:13px;
+    font-size:12px;
+    font-weight:800;
 
-    font-weight:700;
-
-    margin-bottom:24px;
+    animation:
+    fadeDown .7s ease;
 }
 
-.live-dot{
+.dot{
     width:7px;
     height:7px;
 
@@ -234,44 +257,52 @@ body::after{
 }
 
 .hero h1{
-    max-width:850px;
+    max-width:900px;
 
-    margin:auto;
+    margin:
+    22px auto
+    0;
 
     font-size:
-    clamp(42px,7vw,76px);
+    clamp(43px,7vw,76px);
 
-    line-height:1.04;
+    line-height:1.02;
 
     letter-spacing:-3px;
 
-    font-weight:900;
+    font-weight:950;
+
+    animation:
+    fadeUp .7s ease;
 }
 
-.gradient-text{
+.gradient{
     background:
     linear-gradient(
         90deg,
         #60a5fa,
         #a78bfa,
-        #38bdf8
+        #22d3ee
     );
 
     -webkit-background-clip:text;
-
     background-clip:text;
 
     color:transparent;
 }
 
-.hero-description{
+.hero p{
     max-width:650px;
 
-    margin:24px auto 0;
+    margin:
+    22px auto 0;
 
-    color:#9aa6bb;
+    color:var(--muted);
 
     font-size:17px;
+
+    animation:
+    fadeUp .9s ease;
 }
 
 
@@ -279,97 +310,88 @@ body::after{
    SEARCH
 ========================= */
 
-.search-box{
-    max-width:680px;
+.search{
+    max-width:700px;
 
-    margin:35px auto 0;
+    margin:
+    32px auto 0;
 
     position:relative;
 }
 
-.search-box input{
+.search input{
     width:100%;
 
     padding:
-    18px 22px
-    18px 52px;
-
-    border-radius:16px;
+    18px
+    55px
+    18px
+    22px;
 
     border:
-    1px solid rgba(255,255,255,.12);
+    1px solid var(--border);
 
-    background:
-    rgba(255,255,255,.06);
+    border-radius:17px;
 
-    color:white;
+    background:var(--card);
 
-    font-size:15px;
+    color:var(--text);
 
     outline:none;
 
+    font-size:15px;
+
     backdrop-filter:blur(15px);
 
-    box-shadow:
-    0 20px 60px rgba(0,0,0,.25);
+    box-shadow:var(--shadow);
 }
 
-.search-box input::placeholder{
-    color:#77839a;
-}
-
-.search-box input:focus{
-    border-color:#3b82f6;
-
-    box-shadow:
-    0 0 0 4px rgba(59,130,246,.12);
+.search input:focus{
+    border-color:
+    rgba(59,130,246,.6);
 }
 
 .search-icon{
     position:absolute;
 
-    left:19px;
-
+    right:20px;
     top:50%;
 
-    transform:translateY(-50%);
+    transform:
+    translateY(-50%);
 
-    color:#64748b;
+    font-size:20px;
 
-    font-size:19px;
+    color:var(--muted);
 }
 
 
 /* =========================
-   QUICK STATS
+   STATS
 ========================= */
 
 .stats{
-    max-width:850px;
-
-    margin:
-    15px auto
-    0;
-
     display:flex;
 
     justify-content:center;
 
-    gap:45px;
+    gap:50px;
 
     flex-wrap:wrap;
+
+    margin-top:22px;
 }
 
 .stat{
-    color:#7f8ba1;
+    color:var(--muted);
 
-    font-size:13px;
+    font-size:12px;
 }
 
 .stat strong{
     display:block;
 
-    color:#f1f5f9;
+    color:var(--text);
 
     font-size:18px;
 }
@@ -385,13 +407,68 @@ body::after{
     margin:auto;
 
     padding:
-    20px 22px
+    10px 20px
     80px;
 }
 
 
 /* =========================
-   SECTION HEADER
+   CATEGORY FILTER
+========================= */
+
+.filters{
+    display:flex;
+
+    justify-content:center;
+
+    gap:9px;
+
+    flex-wrap:wrap;
+
+    margin:
+    5px 0
+    38px;
+}
+
+.filter{
+    padding:
+    9px 16px;
+
+    border:
+    1px solid var(--border);
+
+    background:var(--card);
+
+    color:var(--muted);
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    transition:.2s;
+}
+
+.filter:hover,
+.filter.active{
+    color:white;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary2)
+    );
+
+    border-color:transparent;
+}
+
+
+/* =========================
+   SECTION
 ========================= */
 
 .section-head{
@@ -402,7 +479,8 @@ body::after{
     align-items:end;
 
     margin:
-    55px 0 22px;
+    48px 0
+    20px;
 }
 
 .section-title{
@@ -412,16 +490,14 @@ body::after{
 }
 
 .section-subtitle{
-    color:#7f8ba1;
+    color:var(--muted);
 
     font-size:13px;
-
-    margin-top:3px;
 }
 
 
 /* =========================
-   TOOL GRID
+   GRID
 ========================= */
 
 .tool-grid{
@@ -435,77 +511,74 @@ body::after{
 
 
 /* =========================
-   TOOL CARD
+   CARD
 ========================= */
 
 .tool-card{
     position:relative;
 
-    overflow:hidden;
-
     padding:22px;
 
     min-height:220px;
 
-    border-radius:20px;
+    overflow:hidden;
 
     border:
-    1px solid rgba(255,255,255,.09);
+    1px solid var(--border);
 
-    background:
-    linear-gradient(
-        145deg,
-        rgba(255,255,255,.075),
-        rgba(255,255,255,.025)
-    );
+    border-radius:21px;
 
-    backdrop-filter:blur(15px);
+    background:var(--card);
+
+    backdrop-filter:blur(16px);
 
     transition:
     transform .25s,
+    background .25s,
     border-color .25s,
     box-shadow .25s;
-}
 
-.tool-card::before{
-    content:"";
-
-    position:absolute;
-
-    width:100px;
-    height:100px;
-
-    right:-50px;
-    top:-50px;
-
-    border-radius:50%;
-
-    background:#2563eb;
-
-    filter:blur(50px);
-
-    opacity:.20;
-
-    transition:.3s;
+    animation:
+    cardIn .5s ease both;
 }
 
 .tool-card:hover{
-    transform:translateY(-7px);
+    transform:
+    translateY(-7px);
+
+    background:var(--card-hover);
 
     border-color:
     rgba(96,165,250,.35);
 
     box-shadow:
-    0 20px 50px rgba(0,0,0,.25);
+    var(--shadow);
 }
 
-.tool-card:hover::before{
-    opacity:.4;
+.tool-card::after{
+    content:"";
+
+    position:absolute;
+
+    width:110px;
+    height:110px;
+
+    right:-60px;
+    top:-60px;
+
+    border-radius:50%;
+
+    background:
+    var(--primary);
+
+    filter:blur(50px);
+
+    opacity:.14;
 }
 
-.tool-icon{
-    width:48px;
-    height:48px;
+.icon{
+    width:50px;
+    height:50px;
 
     display:flex;
 
@@ -515,10 +588,10 @@ body::after{
     border-radius:14px;
 
     background:
-    rgba(37,99,235,.14);
+    rgba(59,130,246,.12);
 
     border:
-    1px solid rgba(96,165,250,.16);
+    1px solid rgba(96,165,250,.15);
 
     font-size:24px;
 
@@ -532,7 +605,7 @@ body::after{
 }
 
 .tool-card p{
-    color:#8793a8;
+    color:var(--muted);
 
     font-size:13px;
 
@@ -540,51 +613,80 @@ body::after{
 
     min-height:42px;
 
-    margin-bottom:17px;
+    margin-bottom:18px;
 }
 
-.tool-link{
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:6px;
+.open{
+    color:#93c5fd;
 
     text-decoration:none;
 
-    color:#93c5fd;
-
     font-size:13px;
 
-    font-weight:700;
+    font-weight:800;
 }
 
-.tool-link:hover{
-    color:white;
+.open:hover{
+    color:var(--text);
 }
 
 
 /* =========================
-   FEATURED CARD
+   BADGES
 ========================= */
 
-.featured{
-    grid-column:
-    span 2;
+.badge{
+    position:absolute;
 
-    min-height:220px;
+    top:17px;
+    right:17px;
+
+    padding:
+    4px 8px;
+
+    border-radius:7px;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    letter-spacing:.4px;
+
+    z-index:2;
+}
+
+.popular{
+    background:
+    rgba(245,158,11,.14);
+
+    color:#fbbf24;
+
+    border:
+    1px solid rgba(245,158,11,.20);
+}
+
+.new{
+    background:
+    rgba(34,197,94,.13);
+
+    color:#4ade80;
+
+    border:
+    1px solid rgba(34,197,94,.18);
+}
+
+
+/* FEATURED */
+
+.featured{
+    grid-column:span 2;
 
     background:
     linear-gradient(
         135deg,
-        rgba(37,99,235,.20),
+        rgba(37,99,235,.18),
         rgba(124,58,237,.10)
     );
-}
-
-.featured .tool-icon{
-    background:
-    rgba(59,130,246,.22);
 }
 
 
@@ -592,22 +694,58 @@ body::after{
    OFFICE
 ========================= */
 
-.office-grid{
+.office-card{
+    background:
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,.055),
+        rgba(59,130,246,.045)
+    );
+}
+
+
+/* =========================
+   PRIVACY
+========================= */
+
+.privacy-box{
     display:grid;
 
     grid-template-columns:
     repeat(4,1fr);
 
-    gap:16px;
+    gap:14px;
+
+    margin-top:20px;
 }
 
-.office-card{
-    background:
-    linear-gradient(
-        135deg,
-        rgba(255,255,255,.07),
-        rgba(255,255,255,.025)
-    );
+.privacy-item{
+    padding:20px;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:17px;
+
+    background:var(--card);
+}
+
+.privacy-item div{
+    font-size:24px;
+
+    margin-bottom:8px;
+}
+
+.privacy-item h4{
+    font-size:14px;
+
+    margin-bottom:4px;
+}
+
+.privacy-item p{
+    color:var(--muted);
+
+    font-size:12px;
 }
 
 
@@ -616,37 +754,32 @@ body::after{
 ========================= */
 
 .about{
-    margin-top:75px;
+    margin-top:70px;
 
-    padding:40px;
+    padding:42px 25px;
+
+    text-align:center;
+
+    border:
+    1px solid var(--border);
 
     border-radius:25px;
 
-    border:
-    1px solid rgba(255,255,255,.08);
-
-    background:
-    linear-gradient(
-        135deg,
-        rgba(255,255,255,.06),
-        rgba(255,255,255,.025)
-    );
-
-    text-align:center;
+    background:var(--card);
 }
 
 .about h2{
-    font-size:30px;
+    font-size:29px;
 
-    margin-bottom:12px;
+    margin-bottom:10px;
 }
 
 .about p{
     max-width:720px;
 
-    margin:8px auto;
+    margin:7px auto;
 
-    color:#8c98ad;
+    color:var(--muted);
 
     font-size:14px;
 }
@@ -657,14 +790,14 @@ body::after{
 ========================= */
 
 .cta{
-    max-width:1200px;
+    max-width:1160px;
 
     margin:
     0 auto
-    80px;
+    70px;
 
     padding:
-    55px 25px;
+    55px 20px;
 
     text-align:center;
 
@@ -685,7 +818,7 @@ body::after{
 }
 
 .cta h2{
-    font-size:32px;
+    font-size:31px;
 
     margin-bottom:8px;
 }
@@ -696,12 +829,13 @@ body::after{
     margin-bottom:22px;
 }
 
-.cta-button{
+.cta a{
     display:inline-block;
 
-    padding:12px 22px;
+    padding:
+    12px 23px;
 
-    border-radius:11px;
+    border-radius:10px;
 
     background:white;
 
@@ -709,9 +843,9 @@ body::after{
 
     text-decoration:none;
 
-    font-size:14px;
+    font-size:13px;
 
-    font-weight:800;
+    font-weight:900;
 }
 
 
@@ -719,14 +853,14 @@ body::after{
    FOOTER
 ========================= */
 
-.footer{
+footer{
     border-top:
-    1px solid rgba(255,255,255,.08);
+    1px solid var(--border);
 
     padding:
-    30px 22px;
+    30px 20px;
 
-    color:#68758b;
+    color:var(--muted);
 }
 
 .footer-inner{
@@ -738,17 +872,15 @@ body::after{
 
     justify-content:space-between;
 
-    align-items:center;
-
     gap:20px;
 
     flex-wrap:wrap;
 }
 
 .footer-brand{
-    color:#e2e8f0;
+    color:var(--text);
 
-    font-weight:800;
+    font-weight:900;
 }
 
 .footer-links{
@@ -760,15 +892,15 @@ body::after{
 }
 
 .footer-links a{
-    color:#68758b;
+    color:var(--muted);
 
     text-decoration:none;
 
-    font-size:13px;
+    font-size:12px;
 }
 
 .footer-links a:hover{
-    color:white;
+    color:var(--text);
 }
 
 .copyright{
@@ -777,25 +909,80 @@ body::after{
     margin:
     22px auto 0;
 
-    padding-top:20px;
+    padding-top:18px;
 
     border-top:
-    1px solid rgba(255,255,255,.06);
+    1px solid var(--border);
 
     text-align:center;
 
-    font-size:12px;
+    font-size:11px;
 }
 
 
 /* =========================
-   MOBILE
+   MOBILE NAV
+========================= */
+
+.mobile-nav{
+    display:none;
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+@keyframes fadeDown{
+
+    from{
+        opacity:0;
+        transform:translateY(-15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+@keyframes cardIn{
+
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* =========================
+   TABLET
 ========================= */
 
 @media(max-width:950px){
 
-    .tool-grid,
-    .office-grid{
+    .tool-grid{
         grid-template-columns:
         repeat(2,1fr);
     }
@@ -804,35 +991,51 @@ body::after{
         grid-column:span 2;
     }
 
+    .privacy-box{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
 }
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:650px){
 
-    .nav-inner{
-        padding:
-        13px 15px;
+    body{
+        padding-bottom:65px;
+    }
+
+    .navbar{
+        position:relative;
     }
 
     .nav-links{
-        gap:13px;
+        display:none;
     }
 
-    .nav-links a{
-        font-size:12px;
+    .nav-inner{
+        padding:
+        12px 15px;
     }
 
     .hero{
         padding:
-        70px 17px
-        55px;
+        65px 15px
+        50px;
     }
 
     .hero h1{
+        font-size:43px;
+
         letter-spacing:-2px;
     }
 
-    .hero-description{
-        font-size:15px;
+    .hero p{
+        font-size:14px;
     }
 
     .stats{
@@ -841,20 +1044,39 @@ body::after{
 
     .main{
         padding:
-        10px 15px
-        55px;
+        5px 15px
+        60px;
+    }
+
+    .filters{
+        justify-content:flex-start;
+
+        overflow-x:auto;
+
+        flex-wrap:nowrap;
+
+        padding-bottom:5px;
+
+        scrollbar-width:none;
+    }
+
+    .filters::-webkit-scrollbar{
+        display:none;
+    }
+
+    .filter{
+        flex-shrink:0;
     }
 
     .section-head{
-        margin-top:40px;
+        margin-top:35px;
     }
 
     .section-title{
         font-size:23px;
     }
 
-    .tool-grid,
-    .office-grid{
+    .tool-grid{
         grid-template-columns:1fr;
     }
 
@@ -866,12 +1088,17 @@ body::after{
         min-height:auto;
     }
 
+    .privacy-box{
+        grid-template-columns:1fr;
+    }
+
     .about{
-        padding:28px 20px;
+        padding:
+        30px 20px;
     }
 
     .about h2{
-        font-size:25px;
+        font-size:24px;
     }
 
     .cta{
@@ -884,12 +1111,73 @@ body::after{
         font-size:26px;
     }
 
+    .footer-inner{
+        flex-direction:column;
+    }
+
+
+    /* MOBILE BOTTOM NAV */
+
+    .mobile-nav{
+        display:flex;
+
+        position:fixed;
+
+        left:10px;
+        right:10px;
+        bottom:10px;
+
+        height:58px;
+
+        z-index:2000;
+
+        border:
+        1px solid var(--border);
+
+        border-radius:18px;
+
+        background:
+        rgba(10,15,30,.88);
+
+        backdrop-filter:blur(18px);
+
+        box-shadow:
+        0 15px 40px rgba(0,0,0,.30);
+
+        justify-content:space-around;
+
+        align-items:center;
+    }
+
+    .light .mobile-nav{
+        background:
+        rgba(255,255,255,.90);
+    }
+
+    .mobile-nav a{
+        text-decoration:none;
+
+        color:var(--muted);
+
+        font-size:10px;
+
+        text-align:center;
+
+        font-weight:800;
+    }
+
+    .mobile-nav span{
+        display:block;
+
+        font-size:20px;
+
+        margin-bottom:1px;
+    }
+
 }
 
 
-/* =========================
-   SEARCH HIDDEN
-========================= */
+/* HIDDEN */
 
 .hidden{
     display:none !important;
@@ -898,6 +1186,7 @@ body::after{
 </style>
 
 </head>
+
 
 <body>
 
@@ -912,9 +1201,11 @@ body::after{
 
 <a href="index.html" class="logo">
 
-<span class="logo-box">🛠️</span>
+<span class="logo-box">
+🛠️
+</span>
 
-<span>ID</span> Tools
+<span>ID</span>&nbsp;Tools
 
 </a>
 
@@ -935,10 +1226,19 @@ body::after{
 
 </ul>
 
+
+<button
+class="theme-btn"
+onclick="toggleTheme()"
+id="themeButton"
+aria-label="Change theme"
+>
+🌙
+</button>
+
 </div>
 
 </nav>
-
 
 
 <!-- =========================
@@ -947,9 +1247,9 @@ body::after{
 
 <header class="hero">
 
-<div class="hero-label">
+<div class="badge-top">
 
-<span class="live-dot"></span>
+<span class="dot"></span>
 
 Free digital toolbox
 
@@ -958,33 +1258,37 @@ Free digital toolbox
 
 <h1>
 
-Everything you need,
+Powerful tools.
 
-<span class="gradient-text">
-in one place.
+<br>
+
+<span class="gradient">
+Simple experience.
 </span>
 
 </h1>
 
 
-<p class="hero-description">
+<p>
 
-Fast, simple and privacy-friendly tools for
-images, PDFs, ID cards, documents and everyday tasks.
+Images, PDFs, ID cards, passport photos,
+QR codes and documents — all in one place.
 
 </p>
 
 
-<div class="search-box">
-
-<span class="search-icon">⌕</span>
+<div class="search">
 
 <input
-type="text"
 id="searchInput"
-placeholder="Search tools... e.g. compressor, PDF, QR"
+type="text"
+placeholder="Search tools... e.g. PDF, image, passport"
 onkeyup="searchTools()"
 >
+
+<span class="search-icon">
+⌕
+</span>
 
 </div>
 
@@ -992,18 +1296,29 @@ onkeyup="searchTools()"
 <div class="stats">
 
 <div class="stat">
+
 <strong>15+</strong>
-Useful tools
+
+Tools
+
 </div>
 
-<div class="stat">
-<strong>100%</strong>
-Browser based
-</div>
 
 <div class="stat">
+
 <strong>Free</strong>
-To use
+
+Always
+
+</div>
+
+
+<div class="stat">
+
+<strong>100%</strong>
+
+Browser Based
+
 </div>
 
 </div>
@@ -1013,22 +1328,75 @@ To use
 
 
 <!-- =========================
-     TOOLS
+     MAIN
 ========================= -->
 
 <main class="main" id="tools">
 
+
+<!-- FILTER -->
+
+<div class="filters">
+
+<button
+class="filter active"
+onclick="filterTools('all',this)"
+>
+All
+</button>
+
+<button
+class="filter"
+onclick="filterTools('image',this)"
+>
+🖼️ Image
+</button>
+
+<button
+class="filter"
+onclick="filterTools('pdf',this)"
+>
+📄 PDF
+</button>
+
+<button
+class="filter"
+onclick="filterTools('id',this)"
+>
+🪪 ID Card
+</button>
+
+<button
+class="filter"
+onclick="filterTools('photo',this)"
+>
+📸 Photo
+</button>
+
+<button
+class="filter"
+onclick="filterTools('document',this)"
+>
+📋 Document
+</button>
+
+</div>
+
+
+<!-- =========================
+     IMAGE TOOLS
+========================= -->
 
 <div class="section-head">
 
 <div>
 
 <h2 class="section-title">
-Image & Document Tools
+Image Tools
 </h2>
 
 <p class="section-subtitle">
-Your everyday digital toolbox
+Edit, convert and optimize your images
 </p>
 
 </div>
@@ -1036,14 +1404,20 @@ Your everyday digital toolbox
 </div>
 
 
-<div class="tool-grid" id="toolGrid">
+<div class="tool-grid">
 
 
-<!-- IMAGE CROPPER -->
+<div
+class="tool-card featured"
+data-category="image"
+data-name="image cropper crop"
+>
 
-<div class="tool-card featured">
+<span class="badge popular">
+POPULAR
+</span>
 
-<div class="tool-icon">
+<div class="icon">
 ✂️
 </div>
 
@@ -1052,22 +1426,30 @@ Image Cropper
 </h3>
 
 <p>
-Crop, rotate and prepare your images with
-simple custom ratios.
+Crop, rotate and prepare images with custom ratios.
 </p>
 
-<a href="cropper.html" class="tool-link">
+<a
+href="cropper.html"
+class="open"
+>
 Open tool →
 </a>
 
 </div>
 
 
-<!-- COMPRESSOR -->
+<div
+class="tool-card"
+data-category="image"
+data-name="image compressor compress"
+>
 
-<div class="tool-card">
+<span class="badge popular">
+POPULAR
+</span>
 
-<div class="tool-icon">
+<div class="icon">
 🗜️
 </div>
 
@@ -1079,18 +1461,23 @@ Image Compressor
 Reduce image size while keeping good quality.
 </p>
 
-<a href="image-compressor.html" class="tool-link">
+<a
+href="image-compressor.html"
+class="open"
+>
 Open tool →
 </a>
 
 </div>
 
 
-<!-- RESIZER -->
+<div
+class="tool-card"
+data-category="image"
+data-name="image resizer resize"
+>
 
-<div class="tool-card">
-
-<div class="tool-icon">
+<div class="icon">
 📐
 </div>
 
@@ -1099,21 +1486,26 @@ Image Resizer
 </h3>
 
 <p>
-Resize images to any required dimensions.
+Resize images to your required dimensions.
 </p>
 
-<a href="image-resizer.html" class="tool-link">
+<a
+href="image-resizer.html"
+class="open"
+>
 Open tool →
 </a>
 
 </div>
 
 
-<!-- CONVERTER -->
+<div
+class="tool-card"
+data-category="image"
+data-name="image converter jpg png webp"
+>
 
-<div class="tool-card">
-
-<div class="tool-icon">
+<div class="icon">
 🔁
 </div>
 
@@ -1122,21 +1514,26 @@ Image Converter
 </h3>
 
 <p>
-Convert JPG, PNG and WebP formats.
+Convert JPG, PNG and WebP image formats.
 </p>
 
-<a href="image-converter.html" class="tool-link">
+<a
+href="image-converter.html"
+class="open"
+>
 Open tool →
 </a>
 
 </div>
 
 
-<!-- WATERMARK -->
+<div
+class="tool-card"
+data-category="image"
+data-name="image watermark"
+>
 
-<div class="tool-card">
-
-<div class="tool-icon">
+<div class="icon">
 💧
 </div>
 
@@ -1145,21 +1542,26 @@ Image Watermark
 </h3>
 
 <p>
-Add custom text watermarks to images.
+Add custom text watermarks to your images.
 </p>
 
-<a href="image-watermark.html" class="tool-link">
+<a
+href="image-watermark.html"
+class="open"
+>
 Open tool →
 </a>
 
 </div>
 
 
-<!-- ROTATE -->
+<div
+class="tool-card"
+data-category="image"
+data-name="image rotate flip"
+>
 
-<div class="tool-card">
-
-<div class="tool-icon">
+<div class="icon">
 🔄
 </div>
 
@@ -1171,18 +1573,23 @@ Image Rotator
 Rotate and flip images instantly.
 </p>
 
-<a href="image-rotate.html" class="tool-link">
+<a
+href="image-rotate.html"
+class="open"
+>
 Open tool →
 </a>
 
 </div>
 
 
-<!-- BASE64 -->
+<div
+class="tool-card"
+data-category="image"
+data-name="image base64 developer"
+>
 
-<div class="tool-card">
-
-<div class="tool-icon">
+<div class="icon">
 💻
 </div>
 
@@ -1191,21 +1598,30 @@ Image to Base64
 </h3>
 
 <p>
-Convert images to Base64 for websites.
+Convert images to Base64 for web development.
 </p>
 
-<a href="image-to-base64.html" class="tool-link">
+<a
+href="image-to-base64.html"
+class="open"
+>
 Open tool →
 </a>
 
 </div>
 
 
-<!-- COLOR -->
+<div
+class="tool-card"
+data-category="image"
+data-name="image color picker color"
+>
 
-<div class="tool-card">
+<span class="badge new">
+NEW
+</span>
 
-<div class="tool-icon">
+<div class="icon">
 🎨
 </div>
 
@@ -1217,7 +1633,10 @@ Color Picker
 Pick HEX, RGB and HSL colors from images.
 </p>
 
-<a href="image-color-picker.html" class="tool-link">
+<a
+href="image-color-picker.html"
+class="open"
+>
 Open tool →
 </a>
 
@@ -1226,9 +1645,17 @@ Open tool →
 
 <!-- PDF -->
 
-<div class="tool-card">
+<div
+class="tool-card"
+data-category="pdf"
+data-name="image to pdf pdf converter"
+>
 
-<div class="tool-icon">
+<span class="badge popular">
+POPULAR
+</span>
+
+<div class="icon">
 📄
 </div>
 
@@ -1240,18 +1667,25 @@ Image to PDF
 Turn images into printable PDF documents.
 </p>
 
-<a href="image-to-pdf.html" class="tool-link">
+<a
+href="image-to-pdf.html"
+class="open"
+>
 Open tool →
 </a>
 
 </div>
 
 
-<!-- ID CARD -->
+<!-- ID -->
 
-<div class="tool-card">
+<div
+class="tool-card"
+data-category="id"
+data-name="id card joiner front back"
+>
 
-<div class="tool-icon">
+<div class="icon">
 🪪
 </div>
 
@@ -1263,18 +1697,29 @@ ID Card Joiner
 Join front and back ID card images together.
 </p>
 
-<a href="idcard-joiner.html" class="tool-link">
+<a
+href="idcard-joiner.html"
+class="open"
+>
 Open tool →
 </a>
 
 </div>
 
 
-<!-- PASSPORT -->
+<!-- PHOTO -->
 
-<div class="tool-card">
+<div
+class="tool-card"
+data-category="photo"
+data-name="passport photo maker"
+>
 
-<div class="tool-icon">
+<span class="badge popular">
+POPULAR
+</span>
+
+<div class="icon">
 📸
 </div>
 
@@ -1283,343 +1728,4 @@ Passport Photo Maker
 </h3>
 
 <p>
-Create printable passport-size photo sheets.
-</p>
-
-<a href="passport-photo.html" class="tool-link">
-Open tool →
-</a>
-
-</div>
-
-
-<!-- QR -->
-
-<div class="tool-card">
-
-<div class="tool-icon">
-🔳
-</div>
-
-<h3>
-QR Generator
-</h3>
-
-<p>
-Create QR codes from text and links.
-</p>
-
-<a href="qr-generator.html" class="tool-link">
-Open tool →
-</a>
-
-</div>
-
-
-<!-- CV -->
-
-<div class="tool-card">
-
-<div class="tool-icon">
-📋
-</div>
-
-<h3>
-CV Maker
-</h3>
-
-<p>
-Create a clean CV and print it as PDF.
-</p>
-
-<a href="cv-maker.html" class="tool-link">
-Open tool →
-</a>
-
-</div>
-
-
-</div>
-
-
-
-<!-- =========================
-     MICROSOFT OFFICE
-========================= -->
-
-<section id="office">
-
-
-<div class="section-head">
-
-<div>
-
-<h2 class="section-title">
-Microsoft Office
-</h2>
-
-<p class="section-subtitle">
-Productivity tools, one click away
-</p>
-
-</div>
-
-</div>
-
-
-<div class="office-grid">
-
-
-<div class="tool-card office-card">
-
-<div class="tool-icon">
-📝
-</div>
-
-<h3>
-Microsoft Word
-</h3>
-
-<p>
-Create and edit documents online.
-</p>
-
-<a
-href="https://www.office.com/launch/word"
-target="_blank"
-class="tool-link"
->
-Open Word ↗
-</a>
-
-</div>
-
-
-<div class="tool-card office-card">
-
-<div class="tool-icon">
-📊
-</div>
-
-<h3>
-Microsoft Excel
-</h3>
-
-<p>
-Create spreadsheets and work with data.
-</p>
-
-<a
-href="https://www.office.com/launch/excel"
-target="_blank"
-class="tool-link"
->
-Open Excel ↗
-</a>
-
-</div>
-
-
-<div class="tool-card office-card">
-
-<div class="tool-icon">
-📽️
-</div>
-
-<h3>
-Microsoft PowerPoint
-</h3>
-
-<p>
-Create presentations online.
-</p>
-
-<a
-href="https://www.office.com/launch/powerpoint"
-target="_blank"
-class="tool-link"
->
-Open PowerPoint ↗
-</a>
-
-</div>
-
-
-<div class="tool-card office-card">
-
-<div class="tool-icon">
-☁️
-</div>
-
-<h3>
-Microsoft OneDrive
-</h3>
-
-<p>
-Access and manage your files online.
-</p>
-
-<a
-href="https://onedrive.live.com/"
-target="_blank"
-class="tool-link"
->
-Open OneDrive ↗
-</a>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- =========================
-     ABOUT
-========================= -->
-
-<section class="about" id="about">
-
-<h2>
-A toolbox built for everyday work.
-</h2>
-
-<p>
-ID Tools brings useful image, PDF, ID card,
-passport photo and document utilities into one simple website.
-</p>
-
-<p>
-The goal is simple: less software, fewer complicated steps,
-and tools that work directly from your browser.
-</p>
-
-</section>
-
-
-</main>
-
-
-
-<!-- =========================
-     CTA
-========================= -->
-
-<section class="cta">
-
-<h2>
-Ready to get things done?
-</h2>
-
-<p>
-Pick a tool and start working.
-</p>
-
-<a href="#tools" class="cta-button">
-Explore all tools
-</a>
-
-</section>
-
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer class="footer">
-
-<div class="footer-inner">
-
-<div>
-
-<div class="footer-brand">
-🛠️ ID Tools
-</div>
-
-<div>
-Your everyday digital toolbox.
-</div>
-
-</div>
-
-
-<div class="footer-links">
-
-<a href="privacy.html">
-Privacy
-</a>
-
-<a href="terms.html">
-Terms
-</a>
-
-<a href="contact.html">
-Contact
-</a>
-
-</div>
-
-</div>
-
-
-<div class="copyright">
-
-© 2026 ID Tools · Built for the web
-
-</div>
-
-</footer>
-
-
-
-<!-- =========================
-     SEARCH SCRIPT
-========================= -->
-
-<script>
-
-function searchTools(){
-
-    const input =
-    document
-    .getElementById("searchInput")
-    .value
-    .toLowerCase()
-    .trim();
-
-
-    const cards =
-    document
-    .querySelectorAll(".tool-card");
-
-
-    cards.forEach(function(card){
-
-        const text =
-        card
-        .innerText
-        .toLowerCase();
-
-
-        if(text.includes(input)){
-
-            card.classList.remove("hidden");
-
-        }else{
-
-            card.classList.add("hidden");
-
-        }
-
-    });
-
-}
-
-</script>
-
-
-</body>
-</html>
+Create printable passport-size photo sheets
