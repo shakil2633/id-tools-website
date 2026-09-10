@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CV Maker - ID Tools</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#222;
+}
+
+.navbar{
+  background:#111827;
+  padding:16px 20px;
+}
+
+.navbar a{
+  color:white;
+  text-decoration:none;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:900px;
+  margin:25px auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  padding:22px;
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+h1{
+  text-align:center;
+  margin-bottom:8px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#666;
+  margin-bottom:25px;
+}
+
+.section{
+  margin-top:22px;
+}
+
+.section h2{
+  font-size:19px;
+  margin-bottom:12px;
+  padding-bottom:8px;
+  border-bottom:1px solid #ddd;
+}
+
+input,
+textarea{
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  border:1px solid #d1d5db;
+  border-radius:9px;
+  font-size:15px;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.generate{
+  background:#2563eb;
+  color:white;
+}
+
+.add{
+  background:#e5e7eb;
+  color:#111827;
+}
+
+.preview{
+  margin-top:30px;
+  background:#e5e7eb;
+  padding:20px;
+  border-radius:12px;
+}
+
+.cv{
+  background:white;
+  max-width:800px;
+  margin:auto;
+  padding:40px;
+  box-shadow:0 3px 12px rgba(0,0,0,.1);
+}
+
+.cv-name{
+  font-size:30px;
+  font-weight:bold;
+}
+
+.cv-contact{
+  color:#555;
+  margin-top:8px;
+}
+
+.cv-section{
+  margin-top:25px;
+}
+
+.cv-section h3{
+  border-bottom:2px solid #222;
+  padding-bottom:5px;
+  margin-bottom:10px;
+}
+
+.cv-section p{
+  line-height:1.6;
+  white-space:pre-line;
+}
+
+.item{
+  margin-bottom:15px;
+}
+
+.item-title{
+  font-weight:bold;
+}
+
+.item-subtitle{
+  color:#555;
+  margin:4px 0;
+}
+
+.print-btn{
+  background:#16a34a;
+  color:white;
+}
+
+@media(max-width:600px){
+
+  .container{
+    padding:10px;
+  }
+
+  .card{
+    padding:17px;
+  }
+
+  .cv{
+    padding:25px;
+  }
+
+  .cv-name{
+    font-size:25px;
+  }
+}
+
+@media print{
+
+  body{
+    background:white;
+  }
+
+  .navbar,
+  .form-area,
+  .subtitle,
+  .preview > button{
+    display:none !important;
+  }
+
+  .preview{
+    padding:0;
+    margin:0;
+    background:white;
+  }
+
+  .cv{
+    box-shadow:none;
+    max-width:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <a href="index.html">🛠️ ID Tools</a>
+</div>
+
+<div class="container">
+
+<div class="card form-area">
+
+<h1>CV Maker</h1>
+
+<p class="subtitle">
+Create a professional CV directly from your phone.
+</p>
+
+<div class="section">
+
+<h2>Personal Information</h2>
+
+<input
+  id="name"
+  placeholder="Full Name"
+>
+
+<input
+  id="job"
+  placeholder="Job Title"
+>
+
+<input
+  id="email"
+  type="email"
+  placeholder="Email"
+>
+
+<input
+  id="phone"
+  placeholder="Phone"
+>
+
+<input
+  id="location"
+  placeholder="City, Country"
+>
+
+<textarea
+  id="summary"
+  placeholder="Professional Summary"
+></textarea>
+
+</div>
+
+<div class="section">
+
+<h2>Education</h2>
+
+<textarea
+  id="education"
+  placeholder="Example:
+Bachelor of Business Administration
+University Name
+2020 - 2024"
+></textarea>
+
+</div>
+
+<div class="section">
+
+<h2>Work Experience</h2>
+
+<textarea
+  id="experience"
+  placeholder="Example:
+Sales Executive - ABC Company
+2022 - 2025
+
+• Managed customer relationships
+• Increased monthly sales
+• Prepared reports"
+></textarea>
+
+</div>
+
+<div class="section">
+
+<h2>Skills</h2>
+
+<textarea
+  id="skills"
+  placeholder="Example:
+Microsoft Office
+Communication
+Teamwork
+Customer Service"
+></textarea>
+
+</div>
+
+<div class="section">
+
+<h2>Languages</h2>
+
+<textarea
+  id="languages"
+  placeholder="Example:
+English - Fluent
+Arabic - Intermediate
+Bengali - Native"
+></textarea>
+
+</div>
+
+<button
+  class="generate"
+  onclick="generateCV()"
+>
+Generate CV
+</button>
+
+</div>
+
+<div class="preview">
+
+<div class="cv" id="cv">
+
+<div class="cv-name" id="cvName">
+Your Name
+</div>
+
+<div class="cv-contact" id="cvContact">
+Email | Phone | Location
+</div>
+
+<div class="cv-section">
+
+<h3>Professional Summary</h3>
+
+<p id="cvSummary">
+Your professional summary will appear here.
+</p>
+
+</div>
+
+<div class="cv-section">
+
+<h3>Work Experience</h3>
+
+<p id="cvExperience">
+Your work experience will appear here.
+</p>
+
+</div>
+
+<div class="cv-section">
+
+<h3>Education</h3>
+
+<p id="cvEducation">
+Your education will appear here.
+</p>
+
+</div>
+
+<div class="cv-section">
+
+<h3>Skills</h3>
+
+<p id="cvSkills">
+Your skills will appear here.
+</p>
+
+</div>
+
+<div class="cv-section">
+
+<h3>Languages</h3>
+
+<p id="cvLanguages">
+Your languages will appear here.
+</p>
+
+</div>
+
+</div>
+
+<button
+  class="print-btn"
+  onclick="printCV()"
+>
+Save / Print CV
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function getValue(id){
+
+  return document
+    .getElementById(id)
+    .value
+    .trim();
+
+}
+
+function generateCV(){
+
+  const name =
+    getValue("name") || "Your Name";
+
+  const job =
+    getValue("job");
+
+  const email =
+    getValue("email");
+
+  const phone =
+    getValue("phone");
+
+  const location =
+    getValue("location");
+
+  const summary =
+    getValue("summary") ||
+    "Your professional summary will appear here.";
+
+  const education =
+    getValue("education") ||
+    "Your education will appear here.";
+
+  const experience =
+    getValue("experience") ||
+    "Your work experience will appear here.";
+
+  const skills =
+    getValue("skills") ||
+    "Your skills will appear here.";
+
+  const languages =
+    getValue("languages") ||
+    "Your languages will appear here.";
+
+  document.getElementById(
+    "cvName"
+  ).textContent = name;
+
+  let contact = "";
+
+  if(job){
+    contact += job;
+  }
+
+  if(email){
+    contact +=
+      (contact ? " | " : "") + email;
+  }
+
+  if(phone){
+    contact +=
+      (contact ? " | " : "") + phone;
+  }
+
+  if(location){
+    contact +=
+      (contact ? " | " : "") + location;
+  }
+
+  document.getElementById(
+    "cvContact"
+  ).textContent = contact;
+
+  document.getElementById(
+    "cvSummary"
+  ).textContent = summary;
+
+  document.getElementById(
+    "cvExperience"
+  ).textContent = experience;
+
+  document.getElementById(
+    "cvEducation"
+  ).textContent = education;
+
+  document.getElementById(
+    "cvSkills"
+  ).textContent = skills;
+
+  document.getElementById(
+    "cvLanguages"
+  ).textContent = languages;
+
+  document.getElementById(
+    "cv"
+  ).scrollIntoView({
+    behavior:"smooth"
+  });
+
+}
+
+function printCV(){
+
+  window.print();
+
+}
+
+</script>
+
+</body>
+</html>
