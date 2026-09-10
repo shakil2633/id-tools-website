@@ -4,723 +4,1617 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<title>ID Tools — Your Everyday Digital Toolbox</title>
 
 <meta name="description"
-      content="Free online image, PDF and ID card tools. Fast, simple and privacy-friendly.">
+content="ID Tools is your free digital toolbox for image, PDF, ID card, passport photo, QR and document utilities.">
 
-<meta name="keywords"
-      content="image tools, PDF tools, ID card PDF, image to PDF, image cropper">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ID Tools - Free Online Image & PDF Tools</title>
+<meta name="robots" content="index, follow">
 
 <style>
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f6f8fc;
-  color: #172033;
-  line-height: 1.5;
+html{
+    scroll-behavior:smooth;
 }
 
-/* NAVBAR */
-
-.navbar {
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.nav-inner {
-  max-width: 1100px;
-  margin: auto;
-  padding: 15px 20px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  text-decoration: none;
-  font-size: 23px;
-  font-weight: bold;
-  color: #2563eb;
-}
-
-.nav-links {
-  display: flex;
-  gap: 18px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #555;
-  font-size: 14px;
-}
-
-.nav-links a:hover {
-  color: #2563eb;
-}
-
-/* HERO */
-
-.hero {
-  text-align: center;
-  padding: 65px 20px 45px;
-}
-
-.hero h1 {
-  font-size: 42px;
-  margin-bottom: 15px;
-}
-
-.hero h1 span {
-  color: #2563eb;
-}
-
-.hero p {
-  max-width: 650px;
-  margin: auto;
-  color: #667085;
-  font-size: 17px;
-}
-
-/* SEARCH */
-
-.search-box {
-  max-width: 550px;
-  margin: 28px auto 0;
-}
-
-.search-box input {
-  width: 100%;
-  padding: 15px 18px;
-
-  border: 1px solid #d9dee8;
-  border-radius: 12px;
-
-  font-size: 16px;
-  outline: none;
-}
-
-.search-box input:focus {
-  border-color: #2563eb;
-}
-
-/* TOOLS */
-
-.section {
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px;
-}
-
-.section-title {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-.section-title h2 {
-  font-size: 28px;
-}
-
-.section-title p {
-  color: #777;
-  margin-top: 5px;
-}
-
-.tools {
-  display: grid;
-
-  grid-template-columns:
-  repeat(auto-fit, minmax(240px, 1fr));
-
-  gap: 20px;
-}
-
-.tool {
-  background: white;
-
-  padding: 25px;
-
-  border-radius: 16px;
-
-  border: 1px solid #e7eaf0;
-
-  transition: 0.2s;
-}
-
-.tool:hover {
-  transform: translateY(-5px);
-
-  box-shadow:
-  0 12px 30px rgba(0,0,0,0.08);
-}
-
-.icon {
-  width: 55px;
-  height: 55px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #eff6ff;
-
-  border-radius: 13px;
-
-  font-size: 28px;
-
-  margin-bottom: 15px;
-}
-
-.tool h3 {
-  margin-bottom: 8px;
-}
-
-.tool p {
-  color: #667085;
-  font-size: 14px;
-}
-
-.btn {
-  display: inline-block;
-
-  margin-top: 17px;
-
-  padding: 10px 18px;
-
-  background: #2563eb;
-
-  color: white;
-
-  text-decoration: none;
-
-  border-radius: 8px;
-
-  font-size: 14px;
-}
-
-.btn:hover {
-  background: #1d4ed8;
-}
-
-/* INFO */
-
-.info-section {
-  max-width: 900px;
-  margin: 60px auto;
-
-  padding: 30px 20px;
-
-  text-align: center;
-}
-
-.info-section h2 {
-  margin-bottom: 12px;
-}
-
-.info-section p {
-  color: #667085;
-}
-
-/* FOOTER */
-
-footer {
-  background: #111827;
-
-  color: white;
-
-  margin-top: 50px;
-
-  padding: 35px 20px;
-
-  text-align: center;
-}
-
-.footer-links {
-  margin-bottom: 15px;
-}
-
-.footer-links a {
-  color: #d1d5db;
-
-  text-decoration: none;
-
-  margin: 0 8px;
-
-  font-size: 14px;
-}
-
-footer p {
-  color: #9ca3af;
-
-  font-size: 13px;
+body{
+    font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    background:#070b17;
+    color:#f8fafc;
+
+    line-height:1.6;
 }
 
 
-/* MOBILE */
+/* =========================
+   BACKGROUND
+========================= */
 
-@media (max-width: 600px) {
+body::before{
+    content:"";
+    position:fixed;
 
-  .nav-links {
-    gap: 10px;
-  }
+    width:500px;
+    height:500px;
 
-  .nav-links a {
-    font-size: 12px;
-  }
+    background:#2563eb;
 
-  .hero {
-    padding: 45px 18px 35px;
-  }
+    filter:blur(180px);
 
-  .hero h1 {
-    font-size: 32px;
-  }
+    opacity:.16;
 
-  .hero p {
-    font-size: 15px;
-  }
+    top:-180px;
+    left:-150px;
 
-  .tools {
-    grid-template-columns: 1fr;
-  }
+    pointer-events:none;
+}
 
+body::after{
+    content:"";
+    position:fixed;
+
+    width:450px;
+    height:450px;
+
+    background:#7c3aed;
+
+    filter:blur(180px);
+
+    opacity:.12;
+
+    right:-150px;
+    bottom:-150px;
+
+    pointer-events:none;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    position:sticky;
+    top:0;
+
+    z-index:1000;
+
+    background:rgba(7,11,23,.78);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.nav-inner{
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:16px 22px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.logo{
+    text-decoration:none;
+
+    color:white;
+
+    font-size:21px;
+
+    font-weight:800;
+
+    letter-spacing:-.5px;
+}
+
+.logo-box{
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:36px;
+    height:36px;
+
+    margin-right:8px;
+
+    border-radius:10px;
+
+    background:
+    linear-gradient(135deg,#2563eb,#7c3aed);
+
+    box-shadow:
+    0 8px 25px rgba(37,99,235,.35);
+}
+
+.logo span{
+    color:#60a5fa;
+}
+
+.nav-links{
+    display:flex;
+
+    gap:28px;
+
+    list-style:none;
+}
+
+.nav-links a{
+    color:#aab4c7;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:.2s;
+}
+
+.nav-links a:hover{
+    color:white;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+    105px 22px
+    85px;
+
+    text-align:center;
+
+    position:relative;
+}
+
+.hero-label{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 15px;
+
+    border-radius:30px;
+
+    border:1px solid rgba(96,165,250,.25);
+
+    background:rgba(37,99,235,.10);
+
+    color:#93c5fd;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    margin-bottom:24px;
+}
+
+.live-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    box-shadow:
+    0 0 12px #22c55e;
+}
+
+.hero h1{
+    max-width:850px;
+
+    margin:auto;
+
+    font-size:
+    clamp(42px,7vw,76px);
+
+    line-height:1.04;
+
+    letter-spacing:-3px;
+
+    font-weight:900;
+}
+
+.gradient-text{
+    background:
+    linear-gradient(
+        90deg,
+        #60a5fa,
+        #a78bfa,
+        #38bdf8
+    );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+}
+
+.hero-description{
+    max-width:650px;
+
+    margin:24px auto 0;
+
+    color:#9aa6bb;
+
+    font-size:17px;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    max-width:680px;
+
+    margin:35px auto 0;
+
+    position:relative;
+}
+
+.search-box input{
+    width:100%;
+
+    padding:
+    18px 22px
+    18px 52px;
+
+    border-radius:16px;
+
+    border:
+    1px solid rgba(255,255,255,.12);
+
+    background:
+    rgba(255,255,255,.06);
+
+    color:white;
+
+    font-size:15px;
+
+    outline:none;
+
+    backdrop-filter:blur(15px);
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.25);
+}
+
+.search-box input::placeholder{
+    color:#77839a;
+}
+
+.search-box input:focus{
+    border-color:#3b82f6;
+
+    box-shadow:
+    0 0 0 4px rgba(59,130,246,.12);
+}
+
+.search-icon{
+    position:absolute;
+
+    left:19px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#64748b;
+
+    font-size:19px;
+}
+
+
+/* =========================
+   QUICK STATS
+========================= */
+
+.stats{
+    max-width:850px;
+
+    margin:
+    15px auto
+    0;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:45px;
+
+    flex-wrap:wrap;
+}
+
+.stat{
+    color:#7f8ba1;
+
+    font-size:13px;
+}
+
+.stat strong{
+    display:block;
+
+    color:#f1f5f9;
+
+    font-size:18px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+    20px 22px
+    80px;
+}
+
+
+/* =========================
+   SECTION HEADER
+========================= */
+
+.section-head{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:end;
+
+    margin:
+    55px 0 22px;
+}
+
+.section-title{
+    font-size:27px;
+
+    letter-spacing:-.7px;
+}
+
+.section-subtitle{
+    color:#7f8ba1;
+
+    font-size:13px;
+
+    margin-top:3px;
+}
+
+
+/* =========================
+   TOOL GRID
+========================= */
+
+.tool-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:16px;
+}
+
+
+/* =========================
+   TOOL CARD
+========================= */
+
+.tool-card{
+    position:relative;
+
+    overflow:hidden;
+
+    padding:22px;
+
+    min-height:220px;
+
+    border-radius:20px;
+
+    border:
+    1px solid rgba(255,255,255,.09);
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.075),
+        rgba(255,255,255,.025)
+    );
+
+    backdrop-filter:blur(15px);
+
+    transition:
+    transform .25s,
+    border-color .25s,
+    box-shadow .25s;
+}
+
+.tool-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    right:-50px;
+    top:-50px;
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    filter:blur(50px);
+
+    opacity:.20;
+
+    transition:.3s;
+}
+
+.tool-card:hover{
+    transform:translateY(-7px);
+
+    border-color:
+    rgba(96,165,250,.35);
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,.25);
+}
+
+.tool-card:hover::before{
+    opacity:.4;
+}
+
+.tool-icon{
+    width:48px;
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:
+    rgba(37,99,235,.14);
+
+    border:
+    1px solid rgba(96,165,250,.16);
+
+    font-size:24px;
+
+    margin-bottom:17px;
+}
+
+.tool-card h3{
+    font-size:17px;
+
+    margin-bottom:7px;
+}
+
+.tool-card p{
+    color:#8793a8;
+
+    font-size:13px;
+
+    line-height:1.55;
+
+    min-height:42px;
+
+    margin-bottom:17px;
+}
+
+.tool-link{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    text-decoration:none;
+
+    color:#93c5fd;
+
+    font-size:13px;
+
+    font-weight:700;
+}
+
+.tool-link:hover{
+    color:white;
+}
+
+
+/* =========================
+   FEATURED CARD
+========================= */
+
+.featured{
+    grid-column:
+    span 2;
+
+    min-height:220px;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(37,99,235,.20),
+        rgba(124,58,237,.10)
+    );
+}
+
+.featured .tool-icon{
+    background:
+    rgba(59,130,246,.22);
+}
+
+
+/* =========================
+   OFFICE
+========================= */
+
+.office-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:16px;
+}
+
+.office-card{
+    background:
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,.07),
+        rgba(255,255,255,.025)
+    );
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about{
+    margin-top:75px;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,.06),
+        rgba(255,255,255,.025)
+    );
+
+    text-align:center;
+}
+
+.about h2{
+    font-size:30px;
+
+    margin-bottom:12px;
+}
+
+.about p{
+    max-width:720px;
+
+    margin:8px auto;
+
+    color:#8c98ad;
+
+    font-size:14px;
+}
+
+
+/* =========================
+   CTA
+========================= */
+
+.cta{
+    max-width:1200px;
+
+    margin:
+    0 auto
+    80px;
+
+    padding:
+    55px 25px;
+
+    text-align:center;
+
+    border-radius:25px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #172554,
+        #312e81
+    );
+
+    border:
+    1px solid rgba(147,197,253,.18);
+
+    box-shadow:
+    0 30px 80px rgba(0,0,0,.25);
+}
+
+.cta h2{
+    font-size:32px;
+
+    margin-bottom:8px;
+}
+
+.cta p{
+    color:#cbd5e1;
+
+    margin-bottom:22px;
+}
+
+.cta-button{
+    display:inline-block;
+
+    padding:12px 22px;
+
+    border-radius:11px;
+
+    background:white;
+
+    color:#111827;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+    font-weight:800;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    border-top:
+    1px solid rgba(255,255,255,.08);
+
+    padding:
+    30px 22px;
+
+    color:#68758b;
+}
+
+.footer-inner{
+    max-width:1200px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+}
+
+.footer-brand{
+    color:#e2e8f0;
+
+    font-weight:800;
+}
+
+.footer-links{
+    display:flex;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+}
+
+.footer-links a{
+    color:#68758b;
+
+    text-decoration:none;
+
+    font-size:13px;
+}
+
+.footer-links a:hover{
+    color:white;
+}
+
+.copyright{
+    max-width:1200px;
+
+    margin:
+    22px auto 0;
+
+    padding-top:20px;
+
+    border-top:
+    1px solid rgba(255,255,255,.06);
+
+    text-align:center;
+
+    font-size:12px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:950px){
+
+    .tool-grid,
+    .office-grid{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .featured{
+        grid-column:span 2;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .nav-inner{
+        padding:
+        13px 15px;
+    }
+
+    .nav-links{
+        gap:13px;
+    }
+
+    .nav-links a{
+        font-size:12px;
+    }
+
+    .hero{
+        padding:
+        70px 17px
+        55px;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+    }
+
+    .hero-description{
+        font-size:15px;
+    }
+
+    .stats{
+        gap:22px;
+    }
+
+    .main{
+        padding:
+        10px 15px
+        55px;
+    }
+
+    .section-head{
+        margin-top:40px;
+    }
+
+    .section-title{
+        font-size:23px;
+    }
+
+    .tool-grid,
+    .office-grid{
+        grid-template-columns:1fr;
+    }
+
+    .featured{
+        grid-column:span 1;
+    }
+
+    .tool-card{
+        min-height:auto;
+    }
+
+    .about{
+        padding:28px 20px;
+    }
+
+    .about h2{
+        font-size:25px;
+    }
+
+    .cta{
+        margin:
+        0 15px
+        55px;
+    }
+
+    .cta h2{
+        font-size:26px;
+    }
+
+}
+
+
+/* =========================
+   SEARCH HIDDEN
+========================= */
+
+.hidden{
+    display:none !important;
 }
 
 </style>
 
 </head>
 
-
 <body>
 
 
-<!-- NAVBAR -->
+<!-- =========================
+     NAVBAR
+========================= -->
 
 <nav class="navbar">
 
-  <div class="nav-inner">
+<div class="nav-inner">
 
-    <a href="index.html"
-       class="logo">
-      🛠️ ID Tools
-    </a>
+<a href="index.html" class="logo">
 
-    <div class="nav-links">
+<span class="logo-box">🛠️</span>
 
-      <a href="index.html">
-        Home
-      </a>
+<span>ID</span> Tools
 
-      <a href="#tools">
-        Tools
-      </a>
+</a>
 
-      <a href="#about">
-        About
-      </a>
 
-    </div>
+<ul class="nav-links">
 
-  </div>
+<li>
+<a href="#tools">Tools</a>
+</li>
+
+<li>
+<a href="#office">Office</a>
+</li>
+
+<li>
+<a href="#about">About</a>
+</li>
+
+</ul>
+
+</div>
 
 </nav>
 
 
 
-<!-- HERO -->
+<!-- =========================
+     HERO
+========================= -->
 
-<section class="hero">
+<header class="hero">
 
-  <h1>
-    Free <span>Online Tools</span>
-  </h1>
+<div class="hero-label">
 
-  <p>
-    Simple and useful tools for images,
-    PDFs and documents. Fast and easy to use
-    directly from your browser.
-  </p>
+<span class="live-dot"></span>
 
-
-  <div class="search-box">
-
-    <input
-      type="text"
-      id="search"
-      placeholder="🔍 Search a tool..."
-      onkeyup="searchTools()"
-    >
-
-  </div>
-
-</section>
-
-
-
-<!-- TOOLS -->
-
-<section class="section"
-         id="tools">
-
-  <div class="section-title">
-
-    <h2>
-      Popular Tools
-    </h2>
-
-    <p>
-      Choose a tool to get started
-    </p>
-
-  </div>
-
-
-  <div class="tools"
-       id="toolList">
-
-
-    <!-- IMAGE CROPPER -->
-
-    <div class="tool">
-
-      <div class="icon">
-        ✂️
-      </div>
-
-      <h3>
-        Image Cropper
-      </h3>
-
-      <p>
-        Crop and resize your images
-        easily from your phone.
-      </p>
-
-      <a
-        href="cropper.html"
-        class="btn">
-        Open Tool
-      </a>
-
-    </div>
-
-
-    <!-- IMAGE PDF -->
-
-    <div class="tool">
-
-      <div class="icon">
-        📄
-      </div>
-
-      <h3>
-        Image to PDF
-      </h3>
-
-      <p>
-        Convert multiple images
-        into a PDF file.
-      </p>
-
-      <a
-        href="image-to-pdf.html"
-        class="btn">
-        Open Tool
-      </a>
-
-    </div>
-
-
-    <!-- ID CARD PDF -->
-
-    <div class="tool">
-
-      <div class="icon">
-        🪪
-      </div>
-
-      <h3>
-        ID Card to PDF
-      </h3>
-
-      <p>
-        Combine front and back
-        ID card images into PDF.
-      </p>
-
-      <a
-        href="idcard-pdf.html"
-        class="btn">
-        Open Tool
-      </a>
-
-    </div>
-
-<!-- ID CARD JOINER -->
-
-    <div class="tool">
-
-      <div class="icon">
-        🪪
-      </div>
-
-      <h3>
-        ID Card Image Joiner
-      </h3>
-
-      <p>
-        Join ID card front and back images into one image.
-      </p>
-
-      <a
-        href="idcard-joiner.html"
-        class="btn">
-        Open Tool
-      </a>
-
-    </div>
-        
-    <!-- IMAGE COMPRESSOR -->
-
-    <div class="tool">
-
-      <div class="icon">
-        📦
-      </div>
-
-      <h3>
-        Image Compressor
-      </h3>
-
-      <p>
-        Reduce image file size
-        while keeping good quality.
-      </p>
-
-      <a href="image-compressor.html"
-            class="btn">
-            Open Tool
-      </a>
-
-    </div>
-
-
-    <!-- QR -->
-
-    <div class="tool">
-
-      <div class="icon">
-        🔳
-      </div>
-
-      <h3>
-        QR Generator
-      </h3>
-
-      <p>
-        Create QR codes quickly
-        and easily.
-      </p>
-
-      <a href="qr-generator.html"
-            class="btn">
-            Open Tool
-      </a>
-    </div>
-
-          
-          <!-- PASSPORT PHOTO MAKER-->
-        
-        <div class="tool">
-              
-         <div class="icon">
-        🔳
-      </div>
-
-      <h3>
-        Passport Photo Make
-      </h3>
-
-      <p>
-        Create a passport size photo from your image.
-      </p>
-
-      <a href="passport-photo.html"
-            class="btn">
-            Open Tool
-      </a>
-
-  </div>
-        
-      <!-- IMAGE RESIZER-->
-        
-        <div class="tool">
-              
-       <div class="icon">
-            📐
-              </div>
-            <h3> 
-                  Image Resizer
-            </h3>
-            <p>
-                  Resize images to exact pixel dimensions.
-            </p>
-
-            <a href="image-resizer.html"
-                  class="btn">
-                  Open Tool
-            </a>
-      </div>
-        
-        <!-- IMAGE CONVERT-->
-        
-        <div class="tool">
-        <div class="icon">
-           🔄   
-        </div>
-            <h3> 
-                  Image Converter
-            </h3>
-              
-              <p>
-                    Convert JPG, PNG and WebP images.
-              </p>
-
-  <a href="image-converter.html"
-        class="btn">
-        Open Tool
-  </a>
-        </div>
-    <!-- CV -->
-
-    <div class="tool">
-
-      <div class="icon">
-        📝
-      </div>
-
-      <h3>
-        CV Maker
-      </h3>
-
-      <p>
-        Create a simple professional
-        CV online.
-      </p>
-
-      <a href="cv-maker.html"
-        class="btn">
-        Open Tool
-      </a>
-
-    </div>
-
-
-  </div>
-
-</section>
-
-
-
-<!-- ABOUT -->
-
-<section
-  class="info-section"
-  id="about">
-
-  <h2>
-    Simple. Fast. Private.
-  </h2>
-
-  <p>
-    ID Tools is designed to provide
-    useful online tools directly in
-    your browser. Wherever possible,
-    files are processed locally on
-    your device instead of being
-    uploaded to a server.
-  </p>
-
-</section>
-
-
-
-<!-- FOOTER -->
-
-<footer>
-
-  <div class="footer-links">
-<div class="footer-links">
-
-  <a href="privacy.html">
-    Privacy Policy
-  </a>
-
-  <a href="terms.html">
-    Terms
-  </a>
-
-  <a href="contact.html">
-    Contact
-  </a>
+Free digital toolbox
 
 </div>
 
-  <p>
-    © 2026 ID Tools. All rights reserved.
-  </p>
+
+<h1>
+
+Everything you need,
+
+<span class="gradient-text">
+in one place.
+</span>
+
+</h1>
+
+
+<p class="hero-description">
+
+Fast, simple and privacy-friendly tools for
+images, PDFs, ID cards, documents and everyday tasks.
+
+</p>
+
+
+<div class="search-box">
+
+<span class="search-icon">⌕</span>
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search tools... e.g. compressor, PDF, QR"
+onkeyup="searchTools()"
+>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+<strong>15+</strong>
+Useful tools
+</div>
+
+<div class="stat">
+<strong>100%</strong>
+Browser based
+</div>
+
+<div class="stat">
+<strong>Free</strong>
+To use
+</div>
+
+</div>
+
+</header>
+
+
+
+<!-- =========================
+     TOOLS
+========================= -->
+
+<main class="main" id="tools">
+
+
+<div class="section-head">
+
+<div>
+
+<h2 class="section-title">
+Image & Document Tools
+</h2>
+
+<p class="section-subtitle">
+Your everyday digital toolbox
+</p>
+
+</div>
+
+</div>
+
+
+<div class="tool-grid" id="toolGrid">
+
+
+<!-- IMAGE CROPPER -->
+
+<div class="tool-card featured">
+
+<div class="tool-icon">
+✂️
+</div>
+
+<h3>
+Image Cropper
+</h3>
+
+<p>
+Crop, rotate and prepare your images with
+simple custom ratios.
+</p>
+
+<a href="cropper.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+<!-- COMPRESSOR -->
+
+<div class="tool-card">
+
+<div class="tool-icon">
+🗜️
+</div>
+
+<h3>
+Image Compressor
+</h3>
+
+<p>
+Reduce image size while keeping good quality.
+</p>
+
+<a href="image-compressor.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+<!-- RESIZER -->
+
+<div class="tool-card">
+
+<div class="tool-icon">
+📐
+</div>
+
+<h3>
+Image Resizer
+</h3>
+
+<p>
+Resize images to any required dimensions.
+</p>
+
+<a href="image-resizer.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+<!-- CONVERTER -->
+
+<div class="tool-card">
+
+<div class="tool-icon">
+🔁
+</div>
+
+<h3>
+Image Converter
+</h3>
+
+<p>
+Convert JPG, PNG and WebP formats.
+</p>
+
+<a href="image-converter.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+<!-- WATERMARK -->
+
+<div class="tool-card">
+
+<div class="tool-icon">
+💧
+</div>
+
+<h3>
+Image Watermark
+</h3>
+
+<p>
+Add custom text watermarks to images.
+</p>
+
+<a href="image-watermark.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+<!-- ROTATE -->
+
+<div class="tool-card">
+
+<div class="tool-icon">
+🔄
+</div>
+
+<h3>
+Image Rotator
+</h3>
+
+<p>
+Rotate and flip images instantly.
+</p>
+
+<a href="image-rotate.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+<!-- BASE64 -->
+
+<div class="tool-card">
+
+<div class="tool-icon">
+💻
+</div>
+
+<h3>
+Image to Base64
+</h3>
+
+<p>
+Convert images to Base64 for websites.
+</p>
+
+<a href="image-to-base64.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+<!-- COLOR -->
+
+<div class="tool-card">
+
+<div class="tool-icon">
+🎨
+</div>
+
+<h3>
+Color Picker
+</h3>
+
+<p>
+Pick HEX, RGB and HSL colors from images.
+</p>
+
+<a href="image-color-picker.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+<!-- PDF -->
+
+<div class="tool-card">
+
+<div class="tool-icon">
+📄
+</div>
+
+<h3>
+Image to PDF
+</h3>
+
+<p>
+Turn images into printable PDF documents.
+</p>
+
+<a href="image-to-pdf.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+<!-- ID CARD -->
+
+<div class="tool-card">
+
+<div class="tool-icon">
+🪪
+</div>
+
+<h3>
+ID Card Joiner
+</h3>
+
+<p>
+Join front and back ID card images together.
+</p>
+
+<a href="idcard-joiner.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+<!-- PASSPORT -->
+
+<div class="tool-card">
+
+<div class="tool-icon">
+📸
+</div>
+
+<h3>
+Passport Photo Maker
+</h3>
+
+<p>
+Create printable passport-size photo sheets.
+</p>
+
+<a href="passport-photo.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+<!-- QR -->
+
+<div class="tool-card">
+
+<div class="tool-icon">
+🔳
+</div>
+
+<h3>
+QR Generator
+</h3>
+
+<p>
+Create QR codes from text and links.
+</p>
+
+<a href="qr-generator.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+<!-- CV -->
+
+<div class="tool-card">
+
+<div class="tool-icon">
+📋
+</div>
+
+<h3>
+CV Maker
+</h3>
+
+<p>
+Create a clean CV and print it as PDF.
+</p>
+
+<a href="cv-maker.html" class="tool-link">
+Open tool →
+</a>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =========================
+     MICROSOFT OFFICE
+========================= -->
+
+<section id="office">
+
+
+<div class="section-head">
+
+<div>
+
+<h2 class="section-title">
+Microsoft Office
+</h2>
+
+<p class="section-subtitle">
+Productivity tools, one click away
+</p>
+
+</div>
+
+</div>
+
+
+<div class="office-grid">
+
+
+<div class="tool-card office-card">
+
+<div class="tool-icon">
+📝
+</div>
+
+<h3>
+Microsoft Word
+</h3>
+
+<p>
+Create and edit documents online.
+</p>
+
+<a
+href="https://www.office.com/launch/word"
+target="_blank"
+class="tool-link"
+>
+Open Word ↗
+</a>
+
+</div>
+
+
+<div class="tool-card office-card">
+
+<div class="tool-icon">
+📊
+</div>
+
+<h3>
+Microsoft Excel
+</h3>
+
+<p>
+Create spreadsheets and work with data.
+</p>
+
+<a
+href="https://www.office.com/launch/excel"
+target="_blank"
+class="tool-link"
+>
+Open Excel ↗
+</a>
+
+</div>
+
+
+<div class="tool-card office-card">
+
+<div class="tool-icon">
+📽️
+</div>
+
+<h3>
+Microsoft PowerPoint
+</h3>
+
+<p>
+Create presentations online.
+</p>
+
+<a
+href="https://www.office.com/launch/powerpoint"
+target="_blank"
+class="tool-link"
+>
+Open PowerPoint ↗
+</a>
+
+</div>
+
+
+<div class="tool-card office-card">
+
+<div class="tool-icon">
+☁️
+</div>
+
+<h3>
+Microsoft OneDrive
+</h3>
+
+<p>
+Access and manage your files online.
+</p>
+
+<a
+href="https://onedrive.live.com/"
+target="_blank"
+class="tool-link"
+>
+Open OneDrive ↗
+</a>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="about" id="about">
+
+<h2>
+A toolbox built for everyday work.
+</h2>
+
+<p>
+ID Tools brings useful image, PDF, ID card,
+passport photo and document utilities into one simple website.
+</p>
+
+<p>
+The goal is simple: less software, fewer complicated steps,
+and tools that work directly from your browser.
+</p>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================
+     CTA
+========================= -->
+
+<section class="cta">
+
+<h2>
+Ready to get things done?
+</h2>
+
+<p>
+Pick a tool and start working.
+</p>
+
+<a href="#tools" class="cta-button">
+Explore all tools
+</a>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+<div class="footer-inner">
+
+<div>
+
+<div class="footer-brand">
+🛠️ ID Tools
+</div>
+
+<div>
+Your everyday digital toolbox.
+</div>
+
+</div>
+
+
+<div class="footer-links">
+
+<a href="privacy.html">
+Privacy
+</a>
+
+<a href="terms.html">
+Terms
+</a>
+
+<a href="contact.html">
+Contact
+</a>
+
+</div>
+
+</div>
+
+
+<div class="copyright">
+
+© 2026 ID Tools · Built for the web
+
+</div>
 
 </footer>
 
 
 
+<!-- =========================
+     SEARCH SCRIPT
+========================= -->
+
 <script>
 
-function searchTools() {
+function searchTools(){
 
-  const input =
+    const input =
     document
-      .getElementById("search")
-      .value
-      .toLowerCase();
+    .getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
 
-  const tools =
+
+    const cards =
     document
-      .querySelectorAll(".tool");
+    .querySelectorAll(".tool-card");
 
 
-  tools.forEach(function(tool) {
+    cards.forEach(function(card){
 
-    const text =
-      tool.innerText.toLowerCase();
+        const text =
+        card
+        .innerText
+        .toLowerCase();
 
 
-    if (text.includes(input)) {
+        if(text.includes(input)){
 
-      tool.style.display =
-        "block";
+            card.classList.remove("hidden");
 
-    } else {
+        }else{
 
-      tool.style.display =
-        "none";
+            card.classList.add("hidden");
 
-    }
+        }
 
-  });
+    });
 
 }
 
@@ -728,4 +1622,4 @@ function searchTools() {
 
 
 </body>
-</html> 
+</html>
