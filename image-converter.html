@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Image Converter - ID Tools</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#222;
+}
+
+.navbar{
+  background:#111827;
+  padding:16px 20px;
+}
+
+.navbar a{
+  color:white;
+  text-decoration:none;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:700px;
+  margin:30px auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+h1{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#666;
+  margin-bottom:25px;
+}
+
+.upload{
+  border:2px dashed #9ca3af;
+  padding:25px;
+  text-align:center;
+  border-radius:12px;
+}
+
+input[type="file"]{
+  width:100%;
+  padding:10px;
+}
+
+.control{
+  margin-top:20px;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+select{
+  width:100%;
+  padding:13px;
+  border:1px solid #d1d5db;
+  border-radius:9px;
+  font-size:16px;
+  background:white;
+}
+
+.quality{
+  display:none;
+}
+
+input[type="range"]{
+  width:100%;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:15px;
+}
+
+.convert{
+  background:#2563eb;
+  color:white;
+}
+
+.download{
+  background:#16a34a;
+  color:white;
+  display:none;
+}
+
+.preview{
+  text-align:center;
+  margin-top:25px;
+}
+
+.preview img{
+  max-width:100%;
+  max-height:400px;
+  margin-top:15px;
+  border-radius:8px;
+}
+
+.info{
+  background:#f3f4f6;
+  padding:14px;
+  border-radius:10px;
+  margin-top:18px;
+  line-height:1.7;
+}
+
+@media(max-width:600px){
+
+  .card{
+    padding:18px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <a href="index.html">🛠️ ID Tools</a>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h1>Image Format Converter</h1>
+
+<p class="subtitle">
+Convert images between JPG, PNG and WebP.
+</p>
+
+<div class="upload">
+
+<p style="margin-bottom:12px;">
+Choose an image
+</p>
+
+<input
+  type="file"
+  id="imageInput"
+  accept="image/*"
+>
+
+</div>
+
+<div class="control">
+
+<label for="format">
+Convert To
+</label>
+
+<select id="format">
+
+<option value="jpeg">
+JPG
+</option>
+
+<option value="png">
+PNG
+</option>
+
+<option value="webp">
+WebP
+</option>
+
+</select>
+
+</div>
+
+<div
+  class="control"
+  id="qualityBox"
+>
+
+<label for="quality">
+Quality:
+<span id="qualityValue">90</span>%
+</label>
+
+<input
+  type="range"
+  id="quality"
+  min="10"
+  max="100"
+  value="90"
+>
+
+</div>
+
+<button
+  class="convert"
+  onclick="convertImage()"
+>
+Convert Image
+</button>
+
+<div class="preview">
+
+<h3 id="previewTitle" style="display:none;">
+Converted Image
+</h3>
+
+<img
+  id="previewImage"
+  style="display:none;"
+>
+
+</div>
+
+<div
+  class="info"
+  id="resultInfo"
+  style="display:none;"
+>
+
+<b>Format:</b>
+<span id="resultFormat"></span>
+
+<br>
+
+<b>File Size:</b>
+<span id="resultSize"></span>
+
+</div>
+
+<a
+  id="downloadLink"
+>
+
+<button
+  class="download"
+  id="downloadBtn"
+>
+Download Converted Image
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+let selectedImage = null;
+
+document.getElementById("imageInput")
+.addEventListener("change", function(){
+
+  selectedImage = this.files[0];
+
+});
+
+const quality =
+  document.getElementById("quality");
+
+const qualityValue =
+  document.getElementById("qualityValue");
+
+quality.addEventListener("input", function(){
+
+  qualityValue.textContent =
+    this.value;
+
+});
+
+const format =
+  document.getElementById("format");
+
+format.addEventListener("change", function(){
+
+  if(this.value === "png"){
+
+    document.getElementById(
+      "qualityBox"
+    ).style.display = "none";
+
+  }else{
+
+    document.getElementById(
+      "qualityBox"
+    ).style.display = "block";
+
+  }
+
+});
+
+function convertImage(){
+
+  if(!selectedImage){
+
+    alert("Please select an image first.");
+    return;
+
+  }
+
+  const reader =
+    new FileReader();
+
+  reader.onload =
+    function(e){
+
+      const img =
+        new Image();
+
+      img.onload =
+        function(){
+
+          const canvas =
+            document.createElement(
+              "canvas"
+            );
+
+          canvas.width =
+            img.width;
+
+          canvas.height =
+            img.height;
+
+          const ctx =
+            canvas.getContext("2d");
+
+          /*
+            White background is needed
+            when converting transparent images
+            to JPG.
+          */
+
+          const selectedFormat =
+            format.value;
+
+          if(selectedFormat === "jpeg"){
+
+            ctx.fillStyle =
+              "#ffffff";
+
+            ctx.fillRect(
+              0,
+              0,
+              canvas.width,
+              canvas.height
+            );
+
+          }
+
+          ctx.drawImage(
+            img,
+            0,
+            0
+          );
+
+          let mimeType;
+          let extension;
+
+          if(selectedFormat === "png"){
+
+            mimeType =
+              "image/png";
+
+            extension =
+              "png";
+
+          }
+
+          else if(selectedFormat === "webp"){
+
+            mimeType =
+              "image/webp";
+
+            extension =
+              "webp";
+
+          }
+
+          else{
+
+            mimeType =
+              "image/jpeg";
+
+            extension =
+              "jpg";
+
+          }
+
+          const qualityValueNumber =
+            parseInt(
+              quality.value
+            ) / 100;
+
+          canvas.toBlob(
+            function(blob){
+
+              if(!blob){
+
+                alert(
+                  "Conversion failed."
+                );
+
+                return;
+
+              }
+
+              const url =
+                URL.createObjectURL(
+                  blob
+                );
+
+              document.getElementById(
+                "previewImage"
+              ).src = url;
+
+              document.getElementById(
+                "previewImage"
+              ).style.display =
+                "block";
+
+              document.getElementById(
+                "previewTitle"
+              ).style.display =
+                "block";
+
+              document.getElementById(
+                "resultInfo"
+              ).style.display =
+                "block";
+
+              document.getElementById(
+                "resultFormat"
+              ).textContent =
+                extension.toUpperCase();
+
+              document.getElementById(
+                "resultSize"
+              ).textContent =
+                formatBytes(blob.size);
+
+              const link =
+                document.getElementById(
+                  "downloadLink"
+                );
+
+              link.href = url;
+
+              link.download =
+                "converted-image." +
+                extension;
+
+              document.getElementById(
+                "downloadBtn"
+              ).style.display =
+                "block";
+
+            },
+            mimeType,
+            selectedFormat === "png"
+              ? undefined
+              : qualityValueNumber
+          );
+
+        };
+
+      img.src =
+        e.target.result;
+
+    };
+
+  reader.readAsDataURL(
+    selectedImage
+  );
+
+}
+
+function formatBytes(bytes){
+
+  if(bytes === 0){
+    return "0 Bytes";
+  }
+
+  const units = [
+    "Bytes",
+    "KB",
+    "MB",
+    "GB"
+  ];
+
+  const i =
+    Math.floor(
+      Math.log(bytes) /
+      Math.log(1024)
+    );
+
+  return parseFloat(
+    (
+      bytes /
+      Math.pow(1024,i)
+    ).toFixed(2)
+  ) +
+  " " +
+  units[i];
+
+}
+
+</script>
+
+</body>
+</html>
