@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ID Card Image Joiner - ID Tools</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .box {
+      background: white;
+      padding: 22px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 15px 0 7px;
+    }
+
+    input[type="file"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: white;
+    }
+
+    button {
+      border: 0;
+      padding: 12px 20px;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .download {
+      background: #16a34a;
+      display: none;
+    }
+
+    .preview {
+      width: 100%;
+      max-height: 600px;
+      object-fit: contain;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-top: 15px;
+      background: #eee;
+    }
+
+    .info {
+      background: #eff6ff;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🪪 ID Card Image Joiner</h1>
+</header>
+
+<div class="container">
+
+  <div class="box">
+
+    <h2>Join Front & Back Images</h2>
+
+    <p>
+      Upload the front and back images of your ID card.
+      They will be combined into one image.
+    </p>
+
+    <label>Front Image</label>
+    <input type="file" id="frontInput" accept="image/*">
+
+    <label>Back Image</label>
+    <input type="file" id="backInput" accept="image/*">
+
+    <label>Layout</label>
+    <select id="layout">
+      <option value="vertical">Top to Bottom</option>
+      <option value="horizontal">Side by Side</option>
+    </select>
+
+    <label>Background</label>
+    <select id="background">
+      <option value="white">White</option>
+      <option value="black">Black</option>
+    </select>
+
+    <button onclick="joinImages()">
+      Join Images
+    </button>
+
+    <div class="info">
+      🔒 Your images are processed directly in your browser.
+      They are not intentionally uploaded to a server by this tool.
+    </div>
+
+  </div>
+
+
+  <div class="box">
+
+    <h2>Preview</h2>
+
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <img id="preview"
+         class="preview"
+         style="display:none;"
+         alt="Joined ID card preview">
+
+    <button id="downloadBtn"
+            class="download"
+            onclick="downloadImage()">
+      ⬇️ Download Joined Image
+    </button>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 ID Tools — Free Online Image Tools
+</footer>
+
+
+<script>
+
+let joinedImage = null;
+
+
+function loadImage(file) {
+
+  return new Promise((resolve, reject) => {
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+      const img = new Image();
+
+      img.onload = function() {
+        resolve(img);
+      };
+
+      img.onerror = reject;
+
+      img.src = e.target.result;
+
+    };
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(file);
+
+  });
+
+}
+
+
+async function joinImages() {
+
+  const frontFile =
+    document.getElementById("frontInput").files[0];
+
+  const backFile =
+    document.getElementById("backInput").files[0];
+
+  if (!frontFile || !backFile) {
+
+    alert("Please select both Front and Back images.");
+
+    return;
+  }
+
+
+  try {
+
+    const front = await loadImage(frontFile);
+    const back = await loadImage(backFile);
+
+    const layout =
+      document.getElementById("layout").value;
+
+    const background =
+      document.getElementById("background").value;
+
+
+    const canvas =
+      document.getElementById("canvas");
+
+    const ctx =
+      canvas.getContext("2d");
+
+
+    const gap = 30;
+    const padding = 30;
+
+
+    if (layout === "vertical") {
+
+      const targetWidth =
+        Math.max(front.width, back.width);
+
+      const frontHeight =
+        front.height *
+        (targetWidth / front.width);
+
+      const backHeight =
+        back.height *
+        (targetWidth / back.width);
+
+
+      canvas.width =
+        targetWidth + padding * 2;
+
+      canvas.height =
+        frontHeight +
+        backHeight +
+        gap +
+        padding * 2;
+
+
+      ctx.fillStyle =
+        background === "white"
+        ? "#ffffff"
+        : "#000000";
+
+      ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+
+      ctx.drawImage(
+        front,
+        padding,
+        padding,
+        targetWidth,
+        frontHeight
+      );
+
+
+      ctx.drawImage(
+        back,
+        padding,
+        padding + frontHeight + gap,
+        targetWidth,
+        backHeight
+      );
+
+    }
+
+
+    else {
+
+      const targetHeight =
+        Math.max(front.height, back.height);
+
+      const frontWidth =
+        front.width *
+        (targetHeight / front.height);
+
+      const backWidth =
+        back.width *
+        (targetHeight / back.height);
+
+
+      canvas.width =
+        frontWidth +
+        backWidth +
+        gap +
+        padding * 2;
+
+      canvas.height =
+        targetHeight +
+        padding * 2;
+
+
+      ctx.fillStyle =
+        background === "white"
+        ? "#ffffff"
+        : "#000000";
+
+      ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+
+      ctx.drawImage(
+        front,
+        padding,
+        padding,
+        frontWidth,
+        targetHeight
+      );
+
+
+      ctx.drawImage(
+        back,
+        padding + frontWidth + gap,
+        padding,
+        backWidth,
+        targetHeight
+      );
+
+    }
+
+
+    joinedImage =
+      canvas.toDataURL("image/jpeg", 0.95);
+
+
+    const preview =
+      document.getElementById("preview");
+
+    preview.src = joinedImage;
+
+    preview.style.display = "block";
+
+
+    document.getElementById("downloadBtn")
+      .style.display = "inline-block";
+
+  }
+
+  catch (error) {
+
+    alert(
+      "Something went wrong while processing the images."
+    );
+
+    console.error(error);
+
+  }
+
+}
+
+
+function downloadImage() {
+
+  if (!joinedImage) {
+    return;
+  }
+
+
+  const link =
+    document.createElement("a");
+
+  link.download =
+    "joined-id-card.jpg";
+
+  link.href =
+    joinedImage;
+
+  link.click();
+
+}
+
+</script>
+
+</body>
+</html>
