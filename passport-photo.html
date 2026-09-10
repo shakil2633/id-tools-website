@@ -32,9 +32,458 @@ body{
 }
 
 .container{
-  max-width:750px;
+  max-width:800px;
   margin:30px auto;
   padding:15px;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+h1{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#666;
+  margin-bottom:25px;
+}
+
+.upload{
+  border:2px dashed #9ca3af;
+  padding:25px;
+  text-align:center;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+input[type="file"]{
+  width:100%;
+  padding:10px;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+select,
+input[type="number"]{
+  width:100%;
+  padding:13px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:16px;
+  background:white;
+}
+
+.control{
+  margin-top:18px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:15px;
+}
+
+.create{
+  background:#2563eb;
+  color:white;
+}
+
+.download{
+  background:#16a34a;
+  color:white;
+  display:none;
+}
+
+.preview{
+  margin-top:25px;
+  text-align:center;
+}
+
+#photoCanvas{
+  max-width:100%;
+  display:none;
+  margin:15px auto;
+  border-radius:8px;
+}
+
+.info{
+  background:#f3f4f6;
+  padding:14px;
+  border-radius:10px;
+  margin-top:18px;
+  line-height:1.6;
+}
+
+.note{
+  color:#b45309;
+  font-size:14px;
+  margin-top:15px;
+}
+
+@media(max-width:600px){
+  .card{
+    padding:18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <a href="index.html">🛠️ ID Tools</a>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h1>Passport Photo Maker</h1>
+
+<p class="subtitle">
+Create a passport-style photo and printable photo sheet.
+</p>
+
+<div class="upload">
+
+<p style="margin-bottom:12px;">
+Choose your photo
+</p>
+
+<input
+  type="file"
+  id="imageInput"
+  accept="image/*"
+>
+
+</div>
+
+<div class="control">
+
+<label for="photoSize">
+Photo Size
+</label>
+
+<select id="photoSize">
+
+<option value="35x45">
+35 × 45 mm
+</option>
+
+<option value="40x60">
+40 × 60 mm
+</option>
+
+<option value="2x2">
+2 × 2 inch
+</option>
+
+</select>
+
+</div>
+
+<div class="control">
+
+<label for="copies">
+Number of Photos
+</label>
+
+<select id="copies">
+
+<option value="1">1 Photo</option>
+<option value="2">2 Photos</option>
+<option value="4">4 Photos</option>
+<option value="6">6 Photos</option>
+<option value="8">8 Photos</option>
+<option value="10">10 Photos</option>
+<option value="12">12 Photos</option>
+
+</select>
+
+</div>
+
+<button
+  class="create"
+  onclick="createSheet()"
+>
+Create Photo Sheet
+</button>
+
+<div class="preview">
+
+<h3 id="previewTitle" style="display:none;">
+Preview
+</h3>
+
+<canvas id="photoCanvas"></canvas>
+
+</div>
+
+<button
+  class="download"
+  id="downloadBtn"
+  onclick="downloadSheet()"
+>
+Download Photo Sheet
+</button>
+
+<div class="info">
+
+<b>Important:</b><br>
+
+This tool creates a passport-style photo based
+on the selected dimensions. Always check the
+official photo requirements of the country,
+embassy, visa center, or organization before
+submitting the photo.
+
+</div>
+
+<p class="note">
+⚠️ This tool does not automatically detect faces
+or verify official passport-photo requirements.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+let selectedFile = null;
+let finalCanvas = null;
+
+document.getElementById("imageInput")
+.addEventListener("change", function(){
+
+  selectedFile = this.files[0];
+
+});
+
+function createSheet(){
+
+  if(!selectedFile){
+
+    alert("Please select a photo first.");
+    return;
+
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    const img = new Image();
+
+    img.onload = function(){
+
+      const size =
+        document.getElementById("photoSize").value;
+
+      const copies =
+        parseInt(
+          document.getElementById("copies").value
+        );
+
+      let ratio;
+
+      if(size === "35x45"){
+        ratio = 35 / 45;
+      }
+
+      else if(size === "40x60"){
+        ratio = 40 / 60;
+      }
+
+      else{
+        ratio = 1;
+      }
+
+      let cropWidth;
+      let cropHeight;
+      let startX = 0;
+      let startY = 0;
+
+      const imageRatio =
+        img.width / img.height;
+
+      if(imageRatio > ratio){
+
+        cropHeight = img.height;
+
+        cropWidth =
+          img.height * ratio;
+
+        startX =
+          (img.width - cropWidth) / 2;
+
+      }else{
+
+        cropWidth = img.width;
+
+        cropHeight =
+          img.width / ratio;
+
+        startY =
+          (img.height - cropHeight) / 2;
+
+      }
+
+      /*
+        Individual photo size:
+        300 x proportional height
+      */
+
+      const photoWidth = 300;
+
+      const photoHeight =
+        Math.round(photoWidth / ratio);
+
+      /*
+        Printable sheet
+      */
+
+      const columns = 3;
+
+      const rows =
+        Math.ceil(copies / columns);
+
+      const gap = 25;
+
+      const margin = 40;
+
+      const sheetWidth =
+        columns * photoWidth +
+        (columns - 1) * gap +
+        margin * 2;
+
+      const sheetHeight =
+        rows * photoHeight +
+        (rows - 1) * gap +
+        margin * 2;
+
+      const canvas =
+        document.getElementById("photoCanvas");
+
+      canvas.width = sheetWidth;
+      canvas.height = sheetHeight;
+
+      const ctx =
+        canvas.getContext("2d");
+
+      /*
+        White background
+      */
+
+      ctx.fillStyle = "#ffffff";
+
+      ctx.fillRect(
+        0,
+        0,
+        sheetWidth,
+        sheetHeight
+      );
+
+      /*
+        Draw photos
+      */
+
+      for(let i = 0; i < copies; i++){
+
+        const column =
+          i % columns;
+
+        const row =
+          Math.floor(i / columns);
+
+        const x =
+          margin +
+          column * (photoWidth + gap);
+
+        const y =
+          margin +
+          row * (photoHeight + gap);
+
+        ctx.drawImage(
+          img,
+          startX,
+          startY,
+          cropWidth,
+          cropHeight,
+          x,
+          y,
+          photoWidth,
+          photoHeight
+        );
+
+      }
+
+      finalCanvas = canvas;
+
+      canvas.style.display = "block";
+
+      document.getElementById(
+        "previewTitle"
+      ).style.display = "block";
+
+      document.getElementById(
+        "downloadBtn"
+      ).style.display = "block";
+
+    };
+
+    img.src = e.target.result;
+
+  };
+
+  reader.readAsDataURL(selectedFile);
+
+}
+
+function downloadSheet(){
+
+  if(!finalCanvas){
+
+    alert("Please create the photo sheet first.");
+    return;
+
+  }
+
+  const link =
+    document.createElement("a");
+
+  link.download =
+    "passport-photo-sheet.jpg";
+
+  link.href =
+    finalCanvas.toDataURL(
+      "image/jpeg",
+      0.95
+    );
+
+  link.click();
+
+}
+
+</script>
+
+</body>
+</html>  padding:15px;
 }
 
 .card{
