@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Image Cropper - ID Tools</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: white;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 2px 10px #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      color: #2563eb;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 700px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 5px 20px #ddd;
+    }
+
+    input {
+      width: 100%;
+      margin: 15px 0;
+      padding: 12px;
+    }
+
+    canvas {
+      max-width: 100%;
+      margin-top: 15px;
+      border: 2px dashed #aaa;
+    }
+
+    button {
+      margin: 10px 5px;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background: #aaa;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>✂️ Image Cropper</h1>
+</header>
+
+<div class="container">
+
+  <h2>Crop Your Image</h2>
+
+  <input type="file" id="imageInput" accept="image/*">
+
+  <canvas id="canvas"></canvas>
+
+  <br>
+
+  <button id="cropBtn" disabled>Crop Image</button>
+
+  <button id="downloadBtn" disabled>
+    Download
+  </button>
+
+</div>
+
+<script>
+
+const input = document.getElementById("imageInput");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const cropBtn = document.getElementById("cropBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+
+let image = new Image();
+
+input.addEventListener("change", function () {
+
+  const file = input.files[0];
+
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function (event) {
+
+    image.onload = function () {
+
+      let maxWidth = 600;
+      let scale = Math.min(1, maxWidth / image.width);
+
+      canvas.width = image.width * scale;
+      canvas.height = image.height * scale;
+
+      ctx.drawImage(
+        image,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      cropBtn.disabled = false;
+
+    };
+
+    image.src = event.target.result;
+
+  };
+
+  reader.readAsDataURL(file);
+
+});
+
+
+cropBtn.addEventListener("click", function () {
+
+  const cropWidth = canvas.width * 0.8;
+  const cropHeight = canvas.height * 0.8;
+
+  const startX = (canvas.width - cropWidth) / 2;
+  const startY = (canvas.height - cropHeight) / 2;
+
+  const cropped = document.createElement("canvas");
+
+  cropped.width = cropWidth;
+  cropped.height = cropHeight;
+
+  const croppedCtx = cropped.getContext("2d");
+
+  croppedCtx.drawImage(
+    canvas,
+    startX,
+    startY,
+    cropWidth,
+    cropHeight,
+    0,
+    0,
+    cropWidth,
+    cropHeight
+  );
+
+  canvas.width = cropWidth;
+  canvas.height = cropHeight;
+
+  ctx.drawImage(cropped, 0, 0);
+
+  downloadBtn.disabled = false;
+
+});
+
+
+downloadBtn.addEventListener("click", function () {
+
+  const link = document.createElement("a");
+
+  link.download = "cropped-image.png";
+
+  link.href = canvas.toDataURL("image/png");
+
+  link.click();
+
+});
+
+</script>
+
+</body>
+  </html>
