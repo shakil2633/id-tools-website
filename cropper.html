@@ -1,40 +1,465 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Image Cropper - ID Tools</title>
+<title>Professional Image Cropper - ID Tools</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #222;
+}
+
+header {
+  background: white;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 2px 10px #ddd;
+}
+
+header h1 {
+  margin: 0;
+  color: #2563eb;
+}
+
+.container {
+  width: 94%;
+  max-width: 700px;
+  margin: 25px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px #ddd;
+}
+
+input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+button,
+select {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+.preview {
+  width: 100%;
+  overflow: hidden;
+  background: #111;
+  border-radius: 10px;
+  text-align: center;
+}
+
+canvas {
+  max-width: 100%;
+  display: block;
+  margin: auto;
+  touch-action: none;
+}
+
+.actions {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.download {
+  background: #16a34a;
+  font-size: 16px;
+  padding: 13px 25px;
+}
+
+.info {
+  color: #777;
+  font-size: 13px;
+  margin-top: 12px;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>✂️ Professional Image Cropper</h1>
+</header>
+
+<div class="container">
+
+  <input type="file" id="imageInput" accept="image/*">
+
+  <div class="controls">
+
+    <select id="ratio">
+      <option value="free">Free Crop</option>
+      <option value="1">1 : 1</option>
+      <option value="1.3333">4 : 3</option>
+      <option value="1.5">3 : 2</option>
+      <option value="0.6667">2 : 3</option>
+      <option value="0.75">3 : 4</option>
+    </select>
+
+    <button onclick="zoomIn()">＋ Zoom</button>
+    <button onclick="zoomOut()">− Zoom</button>
+    <button onclick="rotate()">🔄 Rotate</button>
+    <button onclick="resetImage()">↩ Reset</button>
+
+  </div>
+
+  <div class="preview">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <div class="actions">
+    <button class="download" onclick="cropImage()">
+      ✂️ Crop & Download
+    </button>
+  </div>
+
+  <p class="info">
+    Tip: On mobile, drag the image with your finger.
+  </p>
+
+</div>
+
+<script>
+
+const input = document.getElementById("imageInput");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const ratioSelect = document.getElementById("ratio");
+
+let img = new Image();
+
+let scale = 1;
+let rotation = 0;
+let posX = 0;
+let posY = 0;
+
+let dragging = false;
+let lastX = 0;
+let lastY = 0;
+
+let cropW = 300;
+let cropH = 300;
+
+input.addEventListener("change", function() {
+
+  const file = input.files[0];
+
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+
+    img.onload = function() {
+
+      scale = Math.min(
+        1,
+        500 / Math.max(img.width, img.height)
+      );
+
+      rotation = 0;
+      posX = 0;
+      posY = 0;
+
+      setupCanvas();
+      draw();
+
+    };
+
+    img.src = e.target.result;
+
+  };
+
+  reader.readAsDataURL(file);
+
+});
+
+
+function setupCanvas() {
+
+  canvas.width = 500;
+  canvas.height = 500;
+
+  updateCropSize();
+
+}
+
+
+function updateCropSize() {
+
+  const ratio = ratioSelect.value;
+
+  if (ratio === "free") {
+
+    cropW = 350;
+    cropH = 350;
+
+  } else {
+
+    const r = parseFloat(ratio);
+
+    cropW = 360;
+
+    cropH = cropW / r;
+
+    if (cropH > 450) {
+      cropH = 450;
+      cropW = cropH * r;
     }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #222;
-    }
+  }
 
-    header {
-      background: white;
-      padding: 18px;
-      text-align: center;
-      box-shadow: 0 2px 10px #ddd;
-    }
+}
 
-    header h1 {
-      margin: 0;
-      color: #2563eb;
-    }
 
-    .container {
-      width: 92%;
-      max-width: 700px;
-      margin: 30px auto;
-      background: white;
+ratioSelect.addEventListener("change", function() {
+
+  updateCropSize();
+  draw();
+
+});
+
+
+function draw() {
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.save();
+
+  ctx.translate(
+    canvas.width / 2 + posX,
+    canvas.height / 2 + posY
+  );
+
+  ctx.rotate(rotation * Math.PI / 180);
+
+  ctx.scale(scale, scale);
+
+  ctx.drawImage(
+    img,
+    -img.width / 2,
+    -img.height / 2
+  );
+
+  ctx.restore();
+
+  drawCropBox();
+
+}
+
+
+function drawCropBox() {
+
+  const x = (canvas.width - cropW) / 2;
+  const y = (canvas.height - cropH) / 2;
+
+  ctx.save();
+
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 3;
+
+  ctx.strokeRect(
+    x,
+    y,
+    cropW,
+    cropH
+  );
+
+  ctx.fillStyle = "rgba(0,0,0,0.35)";
+
+  ctx.fillRect(0, 0, canvas.width, y);
+
+  ctx.fillRect(
+    0,
+    y + cropH,
+    canvas.width,
+    canvas.height - y - cropH
+  );
+
+  ctx.fillRect(
+    0,
+    y,
+    x,
+    cropH
+  );
+
+  ctx.fillRect(
+    x + cropW,
+    y,
+    canvas.width - x - cropW,
+    cropH
+  );
+
+  ctx.restore();
+
+}
+
+
+function zoomIn() {
+
+  scale += 0.1;
+
+  draw();
+
+}
+
+
+function zoomOut() {
+
+  scale = Math.max(0.1, scale - 0.1);
+
+  draw();
+
+}
+
+
+function rotate() {
+
+  rotation += 90;
+
+  draw();
+
+}
+
+
+function resetImage() {
+
+  scale = 1;
+  rotation = 0;
+  posX = 0;
+  posY = 0;
+
+  draw();
+
+}
+
+
+/* Mobile / Mouse Drag */
+
+canvas.addEventListener("pointerdown", function(e) {
+
+  dragging = true;
+
+  lastX = e.clientX;
+  lastY = e.clientY;
+
+  canvas.setPointerCapture(e.pointerId);
+
+});
+
+
+canvas.addEventListener("pointermove", function(e) {
+
+  if (!dragging) return;
+
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+
+  posX += dx;
+  posY += dy;
+
+  lastX = e.clientX;
+  lastY = e.clientY;
+
+  draw();
+
+});
+
+
+canvas.addEventListener("pointerup", function() {
+
+  dragging = false;
+
+});
+
+
+canvas.addEventListener("pointercancel", function() {
+
+  dragging = false;
+
+});
+
+
+function cropImage() {
+
+  if (!img.src) {
+
+    alert("Please select an image first.");
+
+    return;
+
+  }
+
+  const output = document.createElement("canvas");
+
+  output.width = cropW * 2;
+  output.height = cropH * 2;
+
+  const outCtx = output.getContext("2d");
+
+  const cropX =
+    (canvas.width - cropW) / 2;
+
+  const cropY =
+    (canvas.height - cropH) / 2;
+
+  outCtx.drawImage(
+    canvas,
+    cropX,
+    cropY,
+    cropW,
+    cropH,
+    0,
+    0,
+    output.width,
+    output.height
+  );
+
+  const link = document.createElement("a");
+
+  link.download = "cropped-image.jpg";
+
+  link.href =
+    output.toDataURL("image/jpeg", 0.92);
+
+  link.click();
+
+}
+
+</script>
+
+</body>
+</html>      background: white;
       padding: 25px;
       border-radius: 15px;
       text-align: center;
